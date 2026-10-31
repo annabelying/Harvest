@@ -1,0 +1,1570 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Harvest 中文学习</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1f2933;
+      --muted: #667085;
+      --line: #d6dde8;
+      --paper: #ffffff;
+      --accent: #e65336;
+      --accent-dark: #c13b24;
+      --blue: #2f6fed;
+      --blue-dark: #244fa8;
+      --charcoal: #1c2533;
+      --good: #177245;
+      --bad: #b42318;
+      --soft: #f3f6fb;
+      --gold: #f3a51d;
+      --teal: #14a7a0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        linear-gradient(135deg, rgba(47, 111, 237, 0.07) 25%, transparent 25%) 0 0 / 28px 28px,
+        linear-gradient(180deg, #f7faff 0%, #fffdf8 46%, #eef7f5 100%);
+      color: var(--ink);
+    }
+
+    main {
+      width: min(960px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 40px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 310px);
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 18px;
+      border: 1px solid rgba(217, 222, 231, 0.9);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(248, 251, 255, 0.88)),
+        linear-gradient(135deg, rgba(20, 167, 160, 0.08), rgba(47, 111, 237, 0.08));
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 18px 45px rgba(31, 41, 51, 0.07);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .title-pinyin {
+      margin: 0 0 8px;
+      color: var(--blue-dark);
+      font-size: clamp(1rem, 2.6vw, 1.45rem);
+      font-weight: 800;
+    }
+
+    .hero-copy {
+      max-width: 520px;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .visual-card {
+      width: min(310px, 100%);
+      min-height: 150px;
+      border-radius: 8px;
+      background:
+        linear-gradient(145deg, rgba(28, 37, 51, 0.98), rgba(34, 49, 72, 0.96));
+      color: white;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(28, 37, 51, 0.18);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      display: grid;
+      place-items: center;
+    }
+
+    .visual-card::before {
+      content: "";
+      position: absolute;
+      inset: -58px -38px auto auto;
+      width: 190px;
+      height: 190px;
+      border-radius: 34px;
+      transform: rotate(18deg);
+      background: rgba(20, 167, 160, 0.72);
+    }
+
+    .visual-card::after {
+      content: "";
+      position: absolute;
+      inset: auto auto -78px -36px;
+      width: 185px;
+      height: 185px;
+      border-radius: 50%;
+      border: 22px solid rgba(47, 111, 237, 0.68);
+    }
+
+    .visual-card strong {
+      position: relative;
+      z-index: 1;
+      display: block;
+      font-size: 1.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      color: rgba(255, 255, 255, 0.94);
+      text-align: center;
+    }
+
+    .scoreboard {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(76px, 1fr));
+      gap: 8px;
+      grid-column: 1 / -1;
+      min-width: 0;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.82);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.35rem;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      border-block: 1px solid var(--line);
+      padding: 14px 0;
+      margin-bottom: 22px;
+    }
+
+    .top-level-picker {
+      display: grid;
+      gap: 8px;
+      border: 1px solid rgba(47, 111, 237, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.82);
+      padding: 10px;
+      margin: 0 0 12px;
+    }
+
+    .top-level-picker-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .top-level-picker-header strong {
+      color: var(--ink);
+      font-size: 1rem;
+    }
+
+    .top-level-current {
+      color: var(--blue-dark);
+      font-weight: 900;
+      font-size: 0.9rem;
+    }
+
+    .top-level-picker .level-tracker {
+      grid-template-columns: repeat(auto-fit, minmax(52px, 1fr));
+      gap: 6px;
+    }
+
+    .top-level-picker .level-dot {
+      min-height: 30px;
+      padding: 0 8px;
+      font-size: 0.78rem;
+    }
+
+    .toolbar strong {
+      display: none;
+      min-height: 42px;
+      align-items: center;
+      border-radius: 8px;
+      padding: 0 12px;
+      background: rgba(47, 111, 237, 0.09);
+      color: var(--blue-dark);
+    }
+
+    .mode-group {
+      display: grid;
+      gap: 5px;
+    }
+
+    .mode-status {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 40px;
+      border: 1px solid rgba(47, 111, 237, 0.2);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(235, 248, 247, 0.92));
+      color: var(--ink);
+      padding: 0 12px;
+      box-shadow: 0 8px 20px rgba(47, 111, 237, 0.08);
+      font-size: 0.92rem;
+      font-weight: 850;
+    }
+
+    .mode-pill {
+      display: inline-block;
+      margin: 0 5px;
+      color: var(--blue-dark);
+      font-size: 1rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .mode-pill.study {
+      color: #08746f;
+    }
+
+    .mode-pill.test {
+      color: var(--blue-dark);
+    }
+
+    .mode-pill.pretest {
+      color: #8a5a00;
+    }
+
+    .phase-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .phase-tabs button {
+      min-width: 150px;
+      border-color: rgba(47, 111, 237, 0.22);
+      color: var(--blue-dark);
+      font-weight: 900;
+    }
+
+    #startTestButton {
+      display: none !important;
+    }
+
+    .phase-tabs .practice-game-button {
+      display: none;
+    }
+
+    .phase-tabs .practice-game-button.available {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .grade-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 16px;
+      padding: 8px;
+      border: 1px solid rgba(47, 111, 237, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.76);
+    }
+
+    .grade-tabs button {
+      min-height: 54px;
+      font-size: 1.05rem;
+      border-color: rgba(20, 167, 160, 0.28);
+      background: rgba(235, 248, 247, 0.92);
+      color: #08746f;
+    }
+
+    .grade-tabs button.active {
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      border-color: transparent;
+      color: white;
+    }
+
+    .grade-lock-note {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .final-test-area {
+      display: grid;
+      gap: 4px;
+    }
+
+    .final-test-note {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      max-width: 190px;
+    }
+
+    .teacher-preview-button {
+      min-height: 34px;
+      color: var(--muted);
+      border-style: dashed;
+      font-size: 0.86rem;
+    }
+
+    .grade-preview-button {
+      min-height: 34px;
+      margin-top: 8px;
+      color: var(--blue-dark);
+      border-color: rgba(47, 111, 237, 0.26);
+      border-style: dashed;
+      background: rgba(47, 111, 237, 0.08);
+      font-size: 0.86rem;
+    }
+
+    button {
+      min-height: 42px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 0 14px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      border-color: var(--accent);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    button.active,
+    button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    button.primary:hover {
+      background: var(--accent-dark);
+    }
+
+    #studyModeButton.active {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: white;
+    }
+
+    #testModeButton.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
+    }
+
+    #preTestModeButton.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #382407;
+    }
+
+    .formal-result-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(18, 29, 45, 0.72);
+    }
+
+    .formal-result-dialog {
+      width: min(680px, 100%);
+      max-height: 92vh;
+      overflow: auto;
+      border-radius: 8px;
+      background: white;
+      padding: 22px;
+      box-shadow: 0 24px 70px rgba(18, 29, 45, 0.3);
+    }
+
+    .formal-result-dialog h2 {
+      margin: 0 0 8px;
+    }
+
+    .formal-result-dialog p {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .formal-result-preview {
+      display: block;
+      width: 100%;
+      margin: 16px 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .formal-result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .blue-button {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
+    }
+
+    .blue-button:hover {
+      background: var(--blue-dark);
+    }
+
+    .study-action-button {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: white;
+    }
+
+    .study-action-button:hover {
+      border-color: #08746f;
+    }
+
+    .restart-test-button {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #382407;
+    }
+
+    .restart-test-button:hover {
+      border-color: #c77d05;
+    }
+
+    .practice {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .question-panel,
+    .list-panel {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .question-panel {
+      min-height: 430px;
+    }
+
+    .prompt-label {
+      display: none;
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-label.active {
+      display: block;
+    }
+
+    .prompt-label.practice-instruction {
+      margin-bottom: 14px;
+      border: 1px solid rgba(20, 167, 160, 0.3);
+      border-radius: 8px;
+      background: rgba(232, 248, 246, 0.98);
+      color: #08746f;
+      padding: 12px 14px;
+      font-size: 1rem;
+      font-weight: 850;
+      line-height: 1.35;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .character {
+      display: grid;
+      place-items: center;
+      min-height: 210px;
+      margin: 0 0 16px;
+      padding: 0 16px;
+      border-radius: 8px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: inset 0 -8px 0 rgba(47, 111, 237, 0.04);
+      font-size: clamp(4rem, 16vw, 8rem);
+      font-weight: 800;
+      line-height: 1;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .prompt-stack {
+      display: grid;
+      gap: 12px;
+      place-items: center;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .prompt-pinyin {
+      color: var(--blue-dark);
+      font-size: clamp(1.2rem, 4vw, 2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      text-wrap: balance;
+      white-space: normal;
+    }
+
+    .prompt-pinyin-large {
+      font-size: clamp(2rem, 7vw, 4.4rem);
+    }
+
+    .prompt-chinese {
+      font-size: clamp(3.4rem, 14vw, 7rem);
+      font-weight: 900;
+      line-height: 1;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .study-card {
+      display: none;
+      min-height: 290px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(248, 251, 255, 0.96)),
+        radial-gradient(circle at 22px 22px, rgba(20, 167, 160, 0.12) 2px, transparent 3px);
+      background-size: auto, 38px 38px;
+      border: 1px solid var(--line);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .study-card.active {
+      display: grid;
+      place-items: center;
+    }
+
+    .study-word {
+      font-size: clamp(3rem, 12vw, 6.5rem);
+      line-height: 1.05;
+      font-weight: 900;
+      margin: 10px 0 0;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .character[data-word-size="medium"],
+    .prompt-chinese[data-word-size="medium"],
+    .study-word[data-word-size="medium"] {
+      font-size: clamp(3.1rem, 12vw, 6.4rem);
+    }
+
+    .character[data-word-size="long"],
+    .prompt-chinese[data-word-size="long"],
+    .study-word[data-word-size="long"] {
+      font-size: clamp(2.5rem, 9vw, 5.25rem);
+    }
+
+    .character[data-word-size="xlong"],
+    .prompt-chinese[data-word-size="xlong"],
+    .study-word[data-word-size="xlong"] {
+      font-size: clamp(2rem, 7vw, 4.15rem);
+    }
+
+    .study-pinyin {
+      margin: 0 0 12px;
+      color: var(--blue-dark);
+      font-size: clamp(1.3rem, 4vw, 2rem);
+      font-weight: 800;
+    }
+
+    .study-meaning {
+      min-height: 1.35em;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .study-controls {
+      display: none;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .study-controls.active {
+      display: grid;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      padding: 4px;
+    }
+
+    .choice {
+      position: relative;
+      white-space: normal;
+      line-height: 1.2;
+      padding: 14px 18px;
+      min-height: 64px;
+      border-radius: 999px;
+      border: 2px solid rgba(47, 111, 237, 0.16);
+      background:
+        radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.95) 0 18%, transparent 19%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(238, 247, 245, 0.96));
+      box-shadow: 0 10px 24px rgba(47, 111, 237, 0.1);
+      color: var(--blue-dark);
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    }
+
+    .choice.character-choice {
+      min-height: 64px;
+      font-size: clamp(1.35rem, 3vw, 1.8rem);
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .choice.pinyin-choice {
+      min-height: 64px;
+      font-size: clamp(1.08rem, 2.5vw, 1.35rem);
+      line-height: 1.15;
+    }
+
+    .choice.practice-choice {
+      border-radius: 18px;
+    }
+
+    .choice-word {
+      display: grid;
+      gap: 3px;
+      line-height: 1.1;
+    }
+
+    .choice-word span {
+      font-size: clamp(0.78rem, 1.8vw, 1rem);
+      color: #65728a;
+      white-space: nowrap;
+      overflow: visible;
+    }
+
+    .choice-word b {
+      font-size: clamp(1.55rem, 4vw, 2.25rem);
+      white-space: nowrap;
+    }
+
+    .choice:nth-child(2) {
+      border-color: rgba(20, 167, 160, 0.22);
+      color: #08746f;
+    }
+
+    .choice:nth-child(3) {
+      border-color: rgba(243, 165, 29, 0.28);
+      color: #86540a;
+    }
+
+    .choice:nth-child(4) {
+      border-color: rgba(230, 83, 54, 0.2);
+      color: var(--accent-dark);
+    }
+
+    .choice:hover {
+      transform: translateY(-2px);
+      border-color: currentColor;
+      box-shadow: 0 14px 30px rgba(31, 41, 51, 0.13);
+    }
+
+    .choice:disabled {
+      cursor: default;
+      opacity: 1;
+      transform: none;
+    }
+
+    .choice.correct-answer {
+      border-color: rgba(20, 125, 75, 0.95);
+      background:
+        radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.96) 0 18%, transparent 19%),
+        linear-gradient(135deg, rgba(215, 250, 229, 1), rgba(177, 235, 204, 0.98));
+      color: var(--good);
+      box-shadow: 0 0 0 4px rgba(20, 125, 75, 0.18), 0 18px 34px rgba(20, 125, 75, 0.22);
+    }
+
+    .choice.correct-answer::before {
+      content: "✓";
+      color: var(--good);
+      font-size: 1.45em;
+      font-weight: 900;
+      line-height: 1;
+      margin-right: 10px;
+      pointer-events: none;
+      vertical-align: -0.04em;
+    }
+
+    .choice.wrong-answer {
+      border-color: rgba(180, 35, 24, 0.95);
+      background:
+        radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.92) 0 18%, transparent 19%),
+        linear-gradient(135deg, rgba(255, 225, 217, 1), rgba(250, 186, 171, 0.96));
+      color: var(--bad);
+      box-shadow: 0 0 0 4px rgba(180, 35, 24, 0.16), 0 18px 34px rgba(180, 35, 24, 0.2);
+    }
+
+    .feedback {
+      min-height: 32px;
+      margin: 14px 0 0;
+      font-weight: 800;
+    }
+
+    .feedback.good {
+      color: var(--good);
+    }
+
+    .feedback.bad {
+      color: var(--bad);
+    }
+
+    .answer-action-row {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .list-panel h2 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+    }
+
+    .panel-view {
+      display: none;
+    }
+
+    .panel-view.active {
+      display: block;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .dashboard-stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .dash-card {
+      min-height: 76px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      padding: 10px;
+    }
+
+    .dash-card.current-test-level {
+      min-height: 76px;
+      background:
+        linear-gradient(135deg, rgba(47, 111, 237, 0.16), rgba(20, 167, 160, 0.14)),
+        white;
+      border-color: rgba(47, 111, 237, 0.38);
+      box-shadow: 0 14px 30px rgba(47, 111, 237, 0.12);
+    }
+
+    .dash-card strong {
+      display: block;
+      font-size: 1.35rem;
+      line-height: 1.1;
+    }
+
+    .dash-card.current-test-level strong {
+      color: var(--blue-dark);
+      font-size: 2rem;
+    }
+
+    .dash-card span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .study-progress {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .current-level-card {
+      display: grid;
+      gap: 6px;
+      align-items: center;
+      border-radius: 8px;
+      padding: 10px;
+      background:
+        linear-gradient(135deg, rgba(47, 111, 237, 0.12), rgba(20, 167, 160, 0.1)),
+        white;
+      border: 1px solid rgba(47, 111, 237, 0.24);
+    }
+
+    .current-level-card strong {
+      display: block;
+      color: var(--blue-dark);
+      font-size: 2.05rem;
+      line-height: 1;
+    }
+
+    .current-level-card span {
+      display: block;
+      margin-top: 0;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .grade-kicker {
+      color: #08746f;
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .level-card-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .level-label {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .study-progress-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .mini-stat {
+      min-height: 48px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      padding: 8px;
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .mini-stat span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .study-progress .progress-bar {
+      height: 8px;
+      margin: 0;
+    }
+
+    .progress-bar {
+      height: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #eef2f7;
+      margin: 10px 0 16px;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), var(--teal), var(--gold));
+      transition: width 180ms ease;
+    }
+
+    .test-progress-fill {
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+    }
+
+    .progress-caption {
+      margin: -4px 0 10px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .level-tracker {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .level-dot {
+      min-height: 34px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .level-dot:hover {
+      transform: translateY(-1px);
+      border-color: var(--blue);
+      box-shadow: 0 6px 14px rgba(47, 111, 237, 0.14);
+    }
+
+    .level-dot:focus-visible {
+      outline: 3px solid rgba(47, 111, 237, 0.28);
+      outline-offset: 2px;
+    }
+
+    .level-jump {
+      display: grid;
+      gap: 6px;
+      margin-top: 10px;
+      text-align: left;
+    }
+
+    .level-jump label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .level-jump select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 800;
+      padding: 10px 12px;
+    }
+
+    .advance-button {
+      margin-top: 14px;
+    }
+
+    .review-bank-button {
+      width: 100%;
+      margin: 12px 0 8px;
+      border-color: rgba(20, 167, 160, 0.3);
+      background: rgba(235, 248, 247, 0.96);
+      color: #08746f;
+    }
+
+    .review-bank-actions {
+      display: grid;
+      gap: 8px;
+      margin: 12px 0 8px;
+    }
+
+    .review-bank-actions .review-bank-button {
+      margin: 0;
+    }
+
+    .progress-report-button {
+      border-color: rgba(47, 111, 237, 0.28);
+      background: rgba(239, 245, 255, 0.96);
+      color: var(--blue-dark);
+      white-space: nowrap;
+    }
+
+    .progress-file-button {
+      border-color: rgba(20, 167, 160, 0.28);
+      background: rgba(235, 248, 247, 0.96);
+      color: #08746f;
+      white-space: nowrap;
+    }
+
+    .missed-review {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+      text-align: left;
+    }
+
+    .missed-review-note {
+      border-radius: 8px;
+      border: 1px solid rgba(230, 83, 54, 0.22);
+      background: rgba(230, 83, 54, 0.08);
+      color: var(--bad);
+      padding: 10px 12px;
+      font-weight: 900;
+    }
+
+    .missed-review-note span {
+      display: block;
+      margin-top: 3px;
+      color: var(--ink);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .missed-review div {
+      display: grid;
+      grid-template-columns: minmax(86px, max-content) 1fr;
+      gap: 10px;
+      align-items: center;
+      border-radius: 8px;
+      background: var(--soft);
+      padding: 8px;
+    }
+
+    .missed-review b {
+      white-space: nowrap;
+      font-size: 1.25rem;
+    }
+
+    .missed-review span {
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .level-dot.current {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
+    }
+
+    .level-dot.passed {
+      background: rgba(23, 114, 69, 0.12);
+      border-color: rgba(23, 114, 69, 0.4);
+      color: var(--good);
+    }
+
+    .dashboard-note {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .study-panel-review-button {
+      display: none;
+      width: 100%;
+      margin: 0 0 12px;
+    }
+
+    .study-panel-review-button.active {
+      display: block;
+    }
+
+    .vocab-list {
+      display: grid;
+      gap: 8px;
+      max-height: 385px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .vocab-item {
+      display: grid;
+      grid-template-columns: minmax(86px, max-content) 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 8px;
+      border-radius: 8px;
+      background: var(--soft);
+    }
+
+    .vocab-item b {
+      font-size: 1.55rem;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .vocab-item span {
+      color: var(--muted);
+      font-weight: 700;
+      min-width: 0;
+    }
+
+    .vocab-section-heading {
+      margin: 8px 0 2px;
+      color: var(--blue-dark);
+      font-size: 0.8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .vocab-item small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 750;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: none;
+      place-items: center;
+      padding: 20px;
+      background: rgba(31, 41, 51, 0.34);
+    }
+
+    .modal-overlay.active {
+      display: grid;
+    }
+
+    .celebration-modal {
+      width: min(460px, 100%);
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid rgba(47, 111, 237, 0.18);
+      background: white;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 24px 80px rgba(31, 41, 51, 0.24);
+    }
+
+    .confetti {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 12% 18%, var(--gold) 0 5px, transparent 6px),
+        radial-gradient(circle at 82% 22%, var(--teal) 0 5px, transparent 6px),
+        radial-gradient(circle at 22% 82%, var(--accent) 0 5px, transparent 6px),
+        radial-gradient(circle at 78% 74%, var(--blue) 0 5px, transparent 6px);
+      opacity: 0.75;
+    }
+
+    .celebration-modal h2 {
+      position: relative;
+      margin: 0 0 10px;
+      color: var(--blue-dark);
+      font-size: 1.8rem;
+    }
+
+    .celebration-modal p {
+      position: relative;
+      margin: 0 0 18px;
+      color: var(--ink);
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 760px) {
+      .grade-tabs {
+        grid-template-columns: 1fr;
+      }
+
+      header,
+      .practice {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      header {
+        align-items: stretch;
+      }
+
+      .visual-card {
+        width: 100%;
+      }
+
+      .choices {
+        grid-template-columns: 1fr;
+      }
+
+      .study-controls {
+        grid-template-columns: 1fr;
+      }
+    }
+  .unit-group{display:flex;flex-direction:column;gap:8px;flex:1;min-width:100px}.unit-group strong{font-size:13px;color:var(--muted)}.unit-lessons{display:flex;gap:6px}.unit-lessons button{flex:1}.level-dot:disabled{opacity:.45;cursor:default}.top-level-picker .level-tracker{display:flex;flex-wrap:wrap;gap:14px}.study-word.long-word{font-size:clamp(24px,4vw,38px);white-space:normal;overflow-wrap:anywhere}.study-pinyin{white-space:normal}.study-word{overflow-wrap:anywhere}h1{font-size:clamp(1.8rem,4.5vw,3rem)}.vocab-item b{overflow-wrap:anywhere}.final-test-note{max-width:320px}#levelTracker{display:none}@media(max-width:600px){.unit-group{min-width:26%}}
+</style>
+<style id="readable-text">/* Size text to the question panel rather than the full browser window. */
+.question-panel { min-width: 0; container-type: inline-size; }
+.character {
+  display: block;
+  align-content: center;
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+  padding: 24px 16px;
+  text-align: center;
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
+  font-size: clamp(28px, 15cqw, 80px);
+}
+.character[data-kind="pinyin"] { font-size: clamp(24px, 10cqw, 48px); }
+.character.long-prompt { font-size: clamp(24px, 8cqw, 36px); }
+.study-card, .study-card > div { min-width: 0; max-width: 100%; }
+.study-word, .study-word.long-word {
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
+  font-size: clamp(28px, 14cqw, 72px);
+}
+.study-word.long-word { font-size: clamp(24px, 8cqw, 36px); }
+.study-pinyin, .study-meaning { overflow-wrap: anywhere; white-space: normal; line-height: 1.5; }
+.choices { min-width: 0; }
+.choice.character-choice, .choice.pinyin-choice {
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+  padding: 14px 12px;
+  border-radius: 20px;
+}
+.choice.character-choice { font-size: clamp(20px, 5cqw, 28px); }
+.choice.pinyin-choice { font-size: clamp(18px, 4cqw, 22px); }
+.feedback { overflow-wrap: anywhere; line-height: 1.6; }
+</style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="hero-copy">
+        <h1>Harvest 中文学习</h1>
+        <p class="subtitle">Textbook vocabulary practice · 6 units · 12 lessons</p>
+        <p class="subtitle">Unit 1: School and Family 学校与家庭</p>
+        <span class="grade-lock-note">Lesson 1: Chinese is Fun! 我爱学中文 · 44 words</span>
+        
+      </div>
+      <div class="visual-card" aria-hidden="true">
+        <strong id="gradeBadge">Harvest</strong>
+      </div>
+      <section class="scoreboard" id="scoreboard" aria-label="Score">
+        <div class="stat"><strong id="score">0</strong><span>Score</span></div>
+        <div class="stat"><strong id="missed">0</strong><span>Missed</span></div>
+        <div class="stat"><strong id="progress">0/0</strong><span>Progress</span></div>
+      </section>
+    </header>
+
+    <section class="top-level-picker" aria-label="Choose level">
+      <div class="top-level-picker-header">
+        <strong>Choose Unit and Lesson</strong>
+        <span class="top-level-current" id="topLevelCurrent">Current Lesson: 1.1</span>
+      </div>
+      <div class="level-tracker" id="topLevelTracker"></div>
+    </section>
+
+    <section class="toolbar" aria-label="Practice settings">
+      <strong id="levelTitle"></strong>
+      <div class="mode-group">
+        <span class="mode-status" id="modeStatus">You are currently in the <span class="mode-pill study">Study</span> mode.</span>
+	        <div class="phase-tabs">
+	          <button id="studyModeButton" class="active" type="button">Go to Study Mode</button>
+	          <button id="practiceGameButton" class="practice-game-button available" type="button">Go to Practice Mode</button>
+	          <button id="preTestModeButton" type="button">Start Pre-Test</button>
+	          <button id="testModeButton" type="button">Start Formal Test</button>
+	        </div>
+	      </div>
+	      <button id="startTestButton" class="blue-button" type="button">Go Test</button>
+	      <div class="final-test-area">
+        <button id="finalTestButton" class="blue-button" type="button">Final Test</button>
+        
+        <span class="final-test-note" id="finalTestNote">Available anytime: 50 random words.</span>
+      </div>
+      <button id="nextButton" class="primary" type="button" style="display: none;">Next Question</button>
+      <button id="restartButton" type="button">Restart Lesson</button>
+    </section>
+
+    <section class="practice">
+      <article class="question-panel">
+        <p class="prompt-label" id="promptLabel"></p>
+        <div class="study-card active" id="studyCard">
+          <div>
+            <p class="study-pinyin" id="studyPinyin">xié zi</p>
+            <p class="study-word" id="studyWord">鞋子</p>
+            <p class="study-meaning" id="studyMeaning"></p>
+          </div>
+        </div>
+        <div class="study-controls active" id="studyControls">
+          <button id="previousStudyButton" type="button">Previous</button>
+          <button id="shuffleStudyButton" type="button">Shuffle</button>
+          <button id="nextStudyButton" type="button">Next</button>
+        </div>
+        <div class="character" id="prompt">你</div>
+        <div class="choices" id="choices"></div>
+        <p class="feedback" id="feedback" aria-live="polite"></p>
+      </article>
+
+      <aside class="list-panel">
+        <div class="panel-view active" id="studyPanel">
+          <div class="study-progress">
+            <div class="current-level-card">
+              <span class="grade-kicker" id="studyCurrentGrade">Harvest</span>
+              <div class="level-card-row">
+                <strong id="studyCurrentLevel">1.1</strong>
+                <span class="level-label">Current Lesson</span>
+              </div>
+            </div>
+            <div class="study-progress-row">
+              <div class="mini-stat"><strong id="studyLevelPosition">1/9</strong><span>Level</span></div>
+              <div class="mini-stat"><strong id="studyTotalLevels">12</strong><span>Total Lessons</span></div>
+              <div class="mini-stat"><strong id="studyWordCount">16</strong><span>Words</span></div>
+            </div>
+            <div class="progress-bar" aria-label="Study level progress">
+              <div class="progress-fill" id="studyProgressFill"></div>
+            </div>
+            <p class="progress-caption">Level Progress</p>
+            <div class="level-jump">
+              <label for="levelJumpSelect">Choose Unit and Lesson</label>
+              <select id="levelJumpSelect" aria-label="Choose any level"></select>
+            </div>
+          </div>
+          <h2>Lesson Vocabulary</h2>
+          <button id="studyPanelReviewMissedButton" class="review-bank-button study-panel-review-button" type="button">Test Missed Words</button>
+          <button id="studyExportProgressButton" class="review-bank-button progress-file-button" type="button">Export Progress File</button>
+          <button id="studyImportProgressButton" class="review-bank-button progress-file-button" type="button">Import Progress File</button>
+          <div class="vocab-list" id="vocabList"></div>
+        </div>
+        <div class="panel-view" id="dashboardPanel">
+          <h2>Dashboard</h2>
+          <div class="dashboard-grid">
+            <div class="dash-card current-test-level">
+              <span class="grade-kicker" id="dashGrade">Harvest</span>
+              <div class="level-card-row">
+                <strong id="dashLevel">1</strong>
+                <span class="level-label">Current Lesson</span>
+              </div>
+            </div>
+            <div class="dashboard-stat-row">
+              <div class="dash-card"><strong id="dashWords">0/16</strong><span>Correct</span></div>
+              <div class="dash-card"><strong id="dashAnswered">0</strong><span>Missed</span></div>
+              <div class="dash-card"><strong id="dashNeeded">15/16</strong><span id="dashNeededLabel">Needed</span></div>
+            </div>
+          </div>
+          <div class="review-bank-actions">
+            <button id="studyMissedButton" class="review-bank-button" type="button">Study Missed Words</button>
+            <button id="reviewMissedButton" class="review-bank-button" type="button">Test Missed Words</button>
+            
+            <button id="exportProgressButton" class="review-bank-button progress-file-button" type="button">Export Progress File</button>
+            <button id="importProgressButton" class="review-bank-button progress-file-button" type="button">Import Progress File</button>
+            <input id="importProgressInput" type="file" accept="application/json,.json" hidden>
+          </div>
+          <h2>Level Progress</h2>
+          <div class="progress-bar" aria-label="Level progress">
+            <div class="progress-fill test-progress-fill" id="progressFill"></div>
+          </div>
+          <div class="level-tracker" id="levelTracker"></div>
+          <p class="dashboard-note" id="dashboardNote">The word list is hidden during the test.</p>
+        </div>
+      </aside>
+    </section>
+    <div class="modal-overlay" id="celebrationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="celebration-modal">
+        <div class="confetti" aria-hidden="true"></div>
+        <h2 id="modalTitle">Great work!</h2>
+        <p id="modalMessage">You passed this level.</p>
+        <button id="modalCloseButton" class="primary" type="button">Keep Going</button>
+      </div>
+    </div>
+  </main>
+
+<script>
+const vocabularyData=[{"character":"体会","pinyin":"tǐ huì","meaning":"to understand, experience","no":1},{"character":"首先","pinyin":"shǒu xiān","meaning":"first of all","no":2},{"character":"欣赏","pinyin":"xīn shǎng","meaning":"to appreciate","no":3},{"character":"实用性","pinyin":"shí yòng xìng","meaning":"practicality","no":4},{"character":"词汇","pinyin":"cí huì","meaning":"vocabulary","no":5},{"character":"固然","pinyin":"gù rán","meaning":"certainly, of course","no":6},{"character":"街道","pinyin":"jiē dào","meaning":"street","no":7},{"character":"超市","pinyin":"chāo shì","meaning":"supermarket","no":8},{"character":"篮球场","pinyin":"lán qiú chǎng","meaning":"basketball court","no":9},{"character":"自然","pinyin":"zì rán","meaning":"natural","no":10},{"character":"其次","pinyin":"qí cì","meaning":"secondly","no":11},{"character":"经验","pinyin":"jīng yàn","meaning":"experience","no":12},{"character":"证明","pinyin":"zhèng míng","meaning":"to prove","no":13},{"character":"围墙","pinyin":"wéi qiáng","meaning":"surrounding wall","no":14},{"character":"曾","pinyin":"céng","meaning":"ever","no":15},{"character":"留学","pinyin":"liú xué","meaning":"to study abroad","no":16},{"character":"姥姥","pinyin":"lǎo lao","meaning":"maternal grandmother","no":17},{"character":"姥爷","pinyin":"lǎo ye","meaning":"maternal grandfather","no":18},{"character":"聊天（儿）","pinyin":"liáo tiān(r)","meaning":"to chat","no":19},{"character":"火锅店","pinyin":"huǒ guō diàn","meaning":"hot-pot restaurant","no":20},{"character":"点菜","pinyin":"diǎn cài","meaning":"to order dishes in a restaurant","no":21},{"character":"上街","pinyin":"shàng jiē","meaning":"to go shopping","no":22},{"character":"购物","pinyin":"gòu wù","meaning":"to shop, to buy things","no":23},{"character":"开玩笑","pinyin":"kāi wán xiào","meaning":"to joke","no":24},{"character":"否认","pinyin":"fǒu rèn","meaning":"to deny","no":25},{"character":"小贩","pinyin":"xiǎo fàn","meaning":"street vendor, hawker","no":26},{"character":"服务员","pinyin":"fú wù yuán","meaning":"salesperson, waiter","no":27},{"character":"队友","pinyin":"duì yǒu","meaning":"teammate","no":28},{"character":"成语","pinyin":"chéng yǔ","meaning":"idiom, set expression","no":29},{"character":"方言","pinyin":"fāng yán","meaning":"dialect","no":30},{"character":"俚语","pinyin":"lǐ yǔ","meaning":"slang","no":31},{"character":"好像","pinyin":"hǎo xiàng","meaning":"to seem like","no":32},{"character":"不知不觉","pinyin":"bù zhī bù jué","meaning":"without realizing","no":33},{"character":"挑战性","pinyin":"tiǎo zhàn xìng","meaning":"challenge","no":34},{"character":"课本","pinyin":"kè běn","meaning":"textbook","no":35},{"character":"进步","pinyin":"jìn bù","meaning":"to progress, improve","no":36},{"character":"意味着","pinyin":"yì wèi zhe","meaning":"to mean","no":37},{"character":"勇气","pinyin":"yǒng qì","meaning":"courage","no":38},{"character":"师傅领进门，修行在个人","pinyin":"shī fu lǐng jìn mén, xiū xíng zài gè rén","meaning":"The master teaches the trade, but an apprentice is self-made.","no":39},{"character":"球队","pinyin":"qiú duì","meaning":"team (in a ball game)","no":40},{"character":"球星","pinyin":"qiú xīng","meaning":"star athlete (in a ball game)","no":41},{"character":"坚定","pinyin":"jiān dìng","meaning":"to strengthen, solidify","no":42},{"character":"害羞","pinyin":"hài xiū","meaning":"shy, timid","no":43},{"character":"有害无益","pinyin":"yǒu hài wú yì","meaning":"harmful, not beneficial","no":44}];
+const $=id=>document.getElementById(id);
+const storageKey='harvest-v1-progress';
+let saved={passed:false,missed:[],attempts:[]};
+try {const v=JSON.parse(localStorage.getItem(storageKey));if(v&&v.textbook==='Harvest')saved=v;}catch{}
+let mode='study',studyItems=vocabularyData,studyIndex=0,queue=[],position=0,score=0,missed=0,answered=false,complete=false,reviewing=false;
+let advanceTimer=null;
+const autoAdvanceModes=new Set(['practice','pretest','formal']);
+function cancelAdvance(){if(advanceTimer!==null){clearTimeout(advanceTimer);advanceTimer=null;}}
+const shuffled=items=>{const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+function save(){try{localStorage.setItem(storageKey,JSON.stringify({...saved,textbook:'Harvest',version:1}));}catch{}}
+function show(id,visible){$(id).style.display=visible?'':'none';}
+function renderMenu(){
+  $('topLevelTracker').replaceChildren();$('levelJumpSelect').replaceChildren();
+  for(let unit=1;unit<=6;unit++){
+    const group=document.createElement('div');group.className='unit-group';
+    const label=document.createElement('strong');label.textContent='Unit '+unit;group.append(label);
+    const lessons=document.createElement('div');lessons.className='unit-lessons';
+    for(let lesson=1;lesson<=2;lesson++){
+      const ready=unit===1&&lesson===1;
+      const b=document.createElement('button');b.className='level-dot'+(ready?' current':'')+(ready&&saved.passed?' passed':'');b.textContent=unit+'.'+lesson;b.disabled=!ready;
+      b.title=ready?'Chinese is Fun! — 44 words':'Coming soon';b.setAttribute('aria-label',`Unit ${unit}, Lesson ${lesson}: ${ready?'44 words':'Coming soon'}`);b.setAttribute('aria-pressed',String(ready));b.onclick=()=>study();lessons.append(b);
+      const option=document.createElement('option');option.value=unit+'.'+lesson;option.textContent=`Unit ${unit}, Lesson ${lesson} (${ready?'44 words':'Coming soon'})`;option.disabled=!ready;$('levelJumpSelect').append(option);
+    }
+    group.append(lessons);$('topLevelTracker').append(group);
+  }
+  $('topLevelCurrent').textContent='Unit 1 · Lesson 1';
+}
+function renderList(){
+  $('vocabList').replaceChildren();
+  studyItems.forEach(item=>{const row=document.createElement('div');row.className='vocab-item';const word=document.createElement('b');word.textContent=item.character;const info=document.createElement('span');info.textContent=item.pinyin;const meaning=document.createElement('small');meaning.textContent=item.meaning;info.append(meaning);row.append(word,info);row.onclick=()=>{studyIndex=studyItems.indexOf(item);card();};$('vocabList').append(row);});
+}
+function card(){const w=studyItems[studyIndex];$('studyWord').textContent=w.character;$('studyWord').classList.toggle('long-word',w.character.length>7);$('studyPinyin').textContent=w.pinyin;$('studyMeaning').textContent=w.meaning;$('promptLabel').className='prompt-label active';$('promptLabel').textContent=(reviewing?'Missed Words · ':'Unit 1, Lesson 1 · ')+(studyIndex+1)+' / '+studyItems.length;}
+function dashboard(){
+  $('score').textContent=score;$('missed').textContent=missed;$('progress').textContent=position+'/'+queue.length;
+  $('dashWords').textContent=score+'/'+queue.length;$('dashAnswered').textContent=missed;$('dashNeeded').textContent=Math.ceil(queue.length*.9)+'/'+queue.length;$('dashNeededLabel').textContent='Needed to pass';
+  $('dashGrade').textContent='Harvest';$('dashLevel').textContent='1.1';$('studyCurrentGrade').textContent='Harvest';$('studyCurrentLevel').textContent='1.1';$('studyLevelPosition').textContent='1/12';$('studyWordCount').textContent=studyItems.length;$('studyProgressFill').style.width=(saved.passed?100/12:0)+'%';
+  const bar=$('studyProgressFill').parentElement;bar.setAttribute('role','progressbar');bar.setAttribute('aria-valuemin','0');bar.setAttribute('aria-valuemax','12');bar.setAttribute('aria-valuenow',saved.passed?'1':'0');
+  document.querySelector('.progress-caption').textContent='Textbook progress: '+(saved.passed?1:0)+' of 12 lessons passed';
+  $('progressFill').style.width=(queue.length?position/queue.length*100:0)+'%';
+  for(const id of ['studyMissedButton','reviewMissedButton','studyPanelReviewMissedButton']){$(id).disabled=!saved.missed.length;$(id).textContent=(id==='studyMissedButton'?'Study':'Test')+' Missed Words'+(saved.missed.length?' ('+saved.missed.length+')':'');}
+  $('finalTestButton').textContent='Review Test';$('finalTestNote').textContent='44 available words · Unit 1, Lesson 1. More lessons coming soon.';
+}
+function setMode(next){
+  cancelAdvance();
+  mode=next;const isStudy=next==='study';
+  $('studyCard').classList.toggle('active',isStudy);$('studyControls').classList.toggle('active',isStudy);$('studyPanel').classList.toggle('active',isStudy);$('dashboardPanel').classList.toggle('active',!isStudy);
+  document.querySelector('.question-panel').classList.toggle('is-study',isStudy);
+  show('prompt',!isStudy);show('scoreboard',!isStudy);show('nextButton',!isStudy&&!autoAdvanceModes.has(next));show('restartButton',!isStudy);
+  const label={study:'Study',practice:'Practice',pretest:'Pre-Test',formal:'Formal Test',review:'Missed Words',final:'Review Test'}[next];
+  $('modeStatus').replaceChildren(document.createTextNode('You are currently in the '));const pill=document.createElement('span');pill.className='mode-pill '+(isStudy?'study':'test');pill.textContent=label;$('modeStatus').append(pill,document.createTextNode(' mode.'));
+  for(const [id,phase]of [['studyModeButton','study'],['practiceGameButton','practice'],['preTestModeButton','pretest'],['testModeButton','formal']])$(id).classList.toggle('active',phase===next);
+  $('startTestButton').textContent=isStudy?'Go Test':'Go Study';$('choices').replaceChildren();$('feedback').textContent='';$('feedback').className='feedback';
+}
+function study(onlyMissed=false){reviewing=onlyMissed;studyItems=onlyMissed?vocabularyData.filter(w=>saved.missed.includes(w.no)):vocabularyData;if(!studyItems.length)studyItems=vocabularyData;studyIndex=0;setMode('study');renderList();card();dashboard();}
+function start(next='formal',onlyMissed=false){reviewing=onlyMissed;queue=shuffled(onlyMissed?vocabularyData.filter(w=>saved.missed.includes(w.no)):vocabularyData);if(!queue.length)return;position=0;score=0;missed=0;complete=false;setMode(next);question();}
+// Optional 儿 is displayed as an erhua ending, not a separate syllable.
+const hanCount=text=>(text.replace(/[（(][^）)]*[）)]/gu,'').match(/\p{Script=Han}/gu)||[]).length;
+const extraChoices=[
+  {character:'登',pinyin:'dēng'}, {character:'等',pinyin:'děng'}, {character:'增',pinyin:'zēng'},
+  {character:'不慌不忙',pinyin:'bù huāng bù máng'},
+  {character:'有说有笑',pinyin:'yǒu shuō yǒu xiào'},
+  {character:'自言自语',pinyin:'zì yán zì yǔ'},
+  {character:'师傅领进门，学习靠个人',pinyin:'shī fu lǐng jìn mén, xué xí kào gè rén'},
+  {character:'老师教方法，练习靠自己',pinyin:'lǎo shī jiāo fāng fǎ, liàn xí kào zì jǐ'},
+  {character:'学习要用心，进步靠努力',pinyin:'xué xí yào yòng xīn, jìn bù kào nǔ lì'}
+];
+function matchingChoices(word,reverse){
+  const field=reverse?'character':'pinyin';
+  const seen=new Set([word[field]]);
+  const candidates=[...shuffled(vocabularyData),...shuffled(extraChoices)];
+  const result=[];
+  for(const item of candidates){
+    if(hanCount(item.character)!==hanCount(word.character)||seen.has(item[field]))continue;
+    seen.add(item[field]);result.push({...item,no:item.no??-1});
+    if(result.length===3)break;
+  }
+  if(result.length!==3)throw Error('Missing same-length choices for '+word.character);
+  return shuffled([word,...result]);
+}
+function question(){
+  answered=false;const w=queue[position];$('promptLabel').className='prompt-label active';const reverse=mode==='practice';
+  $('promptLabel').textContent=reverse?'Choose the Chinese word for this pinyin.':mode==='pretest'?'Choose the pinyin. Pre-Test does not change saved progress.':'Choose the correct pinyin.';
+  $('prompt').textContent=reverse?w.pinyin:w.character;
+  $('prompt').dataset.kind=reverse?'pinyin':'chinese';
+  $('prompt').classList.toggle('long-prompt',hanCount(w.character)>6);
+  $('choices').replaceChildren();$('feedback').textContent='';$('feedback').className='feedback';$('nextButton').textContent='Next Question';$('nextButton').disabled=true;
+  const field=reverse?'character':'pinyin';
+  matchingChoices(w,reverse).forEach(item=>{const b=document.createElement('button');b.className='choice '+(reverse?'character-choice':'pinyin-choice');b.textContent=item[field];b.onclick=()=>answer(item.no,b);$('choices').append(b);});
+  $('dashboardNote').textContent=mode==='practice'?'Practice pinyin to Chinese. Practice and Pre-Test do not change saved progress.':'The word list is hidden during the test. Pass with at least 90% correct.';dashboard();
+}
+function answer(no,button){if(answered||complete)return;answered=true;const w=queue[position];const correct=no===w.no;score+=Number(correct);missed+=Number(!correct);
+  const options=[...$('choices').children];options.forEach(b=>{b.disabled=true;if(b.textContent===(mode==='practice'?w.character:w.pinyin))b.classList.add('correct');});
+  if(!correct)button.classList.add('wrong');
+  const persistent=['formal','final','review'].includes(mode);
+  if(persistent){if(!correct&&!saved.missed.includes(w.no))saved.missed.push(w.no);else if(correct&&mode==='review')saved.missed=saved.missed.filter(n=>n!==w.no);save();}
+  $('feedback').textContent=(correct?'Correct! ':'Keep practicing. ')+w.character+' · '+w.pinyin+' · '+w.meaning;$('feedback').className='feedback '+(correct?'good':'bad');position++;$('nextButton').disabled=false;$('nextButton').textContent=position===queue.length?'See Results':'Next Question';dashboard();
+  if(autoAdvanceModes.has(mode)){
+    $('feedback').textContent+=correct?' Next question shortly.':' Read the correct answer. Continuing in 5 seconds.';
+    advanceTimer=setTimeout(()=>{advanceTimer=null;if(position===queue.length)finish();else question();},correct?800:5000);
+  }
+}
+function finish(){cancelAdvance();complete=true;show('nextButton',true);const passed=score/queue.length>=.9;if(['formal','final','review'].includes(mode)){saved.attempts.push({mode,correct:score,total:queue.length,date:new Date().toISOString()});if(mode==='formal'&&passed)saved.passed=true;save();renderMenu();}
+  $('choices').replaceChildren();$('prompt').textContent=passed?'完成！':'继续加油！';$('feedback').textContent=`${score}/${queue.length} correct (${Math.round(score/queue.length*100)}%). `+(passed?'Great work!':'Review the words and try again. You need 90% to pass.');$('feedback').className='feedback '+(passed?'good':'bad');$('nextButton').textContent='Back to Study';dashboard();
+}
+$('nextButton').onclick=()=>{if(complete){study();return;}if(!answered)return;if(position===queue.length)finish();else question();};
+$('previousStudyButton').onclick=()=>{studyIndex=(studyIndex-1+studyItems.length)%studyItems.length;card();};
+$('nextStudyButton').onclick=()=>{studyIndex=(studyIndex+1)%studyItems.length;card();};
+$('shuffleStudyButton').onclick=()=>{studyIndex=Math.floor(Math.random()*studyItems.length);card();};
+$('studyModeButton').onclick=()=>study();$('practiceGameButton').onclick=()=>start('practice');$('preTestModeButton').onclick=()=>start('pretest');$('testModeButton').onclick=()=>start('formal');$('startTestButton').onclick=()=>mode==='study'?start('formal'):study();$('finalTestButton').onclick=()=>start('final');$('restartButton').onclick=()=>start(mode,reviewing);
+$('studyMissedButton').onclick=()=>study(true);$('reviewMissedButton').onclick=$('studyPanelReviewMissedButton').onclick=()=>start('review',true);
+function downloadProgress(){const blob=new Blob([JSON.stringify({...saved,textbook:'Harvest',version:1},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Harvest_Progress.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
+for(const id of ['studyExportProgressButton','exportProgressButton'])$(id).onclick=downloadProgress;
+for(const id of ['studyImportProgressButton','importProgressButton'])$(id).onclick=()=>$('importProgressInput').click();
+$('importProgressInput').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;const v=JSON.parse(await file.text());if(v.textbook!=='Harvest'||v.version!==1||typeof v.passed!=='boolean'||!Array.isArray(v.missed)||v.missed.some(n=>!Number.isInteger(n)||n<1||n>44)||!Array.isArray(v.attempts))throw Error('Please select a Harvest progress file.');saved={passed:v.passed,missed:[...new Set(v.missed)],attempts:v.attempts};save();renderMenu();study();$('feedback').textContent='Harvest progress imported.';}catch(err){$('feedback').textContent='Could not import progress. '+err.message;}finally{e.target.value='';}};
+$('levelJumpSelect').onchange=()=>study();$('modalCloseButton').onclick=()=>$('celebrationModal').classList.remove('active');
+renderMenu();study();
+
+</script>
+</body>
+</html>
