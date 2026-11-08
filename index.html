@@ -1303,6 +1303,113 @@
 .choice.pinyin-choice { font-size: clamp(18px, 4cqw, 22px); }
 .feedback { overflow-wrap: anywhere; line-height: 1.6; }
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style id="formal-definitions">
+.choice.definition-choice {display:flex;flex-direction:column;gap:9px;justify-content:center;align-items:stretch;text-align:left;min-width:0;max-width:100%;height:auto;padding:18px;border-radius:18px;white-space:normal;overflow-wrap:anywhere;line-height:1.55;}
+.definition-chinese {display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 2px;font-size:clamp(20px,4.4cqw,26px);font-weight:750;line-height:1.4;overflow-wrap:normal;word-break:normal;}
+.annotated-character {display:inline-flex;flex-direction:column;align-items:center;justify-content:flex-start;min-width:1.9em;white-space:nowrap;line-height:1.4;}
+.annotation-pinyin {display:block;order:0;font-size:.55em;font-weight:500;line-height:1.6;white-space:nowrap;}
+.annotation-hanzi {display:block;order:1;line-height:1.5;}
+.formal-test-hint {margin:6px 0;font-size:.9rem;line-height:1.5;color:var(--muted);}
+.formal-result {margin-top:16px;color:var(--ink);font-weight:400;}
+.formal-result h3 {font-size:1.1rem;margin:0 0 8px;}
+.formal-result p {font-size:.95rem;line-height:1.5;}
+.formal-result textarea {display:block;box-sizing:border-box;width:100%;margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font:14px/1.6 ui-monospace,monospace;resize:vertical;white-space:pre-wrap;}
+@media(max-width:600px){.choices.definition-choices{grid-template-columns:minmax(0,1fr);}}
+</style>
+<style id="harvest-theme">:root {
+  --ink:#34302a; --muted:#75664e; --line:#ffd58a;
+  --paper:#fffef8; --accent:#f28c18; --accent-dark:#bd5800;
+  --blue:#f2a318; --blue-dark:#965000; --charcoal:#f7ad24;
+  --good:#526b32; --bad:#a33024; --soft:#fff7d8;
+  --gold:#ffd044; --teal:#e7b42b;
+}
+body {background:linear-gradient(135deg,rgba(255,181,37,.06) 25%,transparent 25%) 0 0/28px 28px,linear-gradient(180deg,#fffbea 0%,#fff5ce 55%,#ffe9a3 100%);color:var(--ink);}
+header {border-color:#ffda8f;background:linear-gradient(135deg,#fffef8,#fff0b4);box-shadow:0 18px 45px rgba(230,158,20,.08);}
+.visual-card {background:linear-gradient(145deg,#ffb52e,#ffda55);color:#663a00;}
+.question-panel,.list-panel,.top-level-picker {background:#fffef8;border-color:#ffda8f;}
+.toolbar {background:#fff4c9;border-color:#ffda8f;}
+.study-card {background:linear-gradient(135deg,#fffef8,#fff4ca);border-color:#ffda91;}
+.character {background:#fffef8;border-color:#ffda91;box-shadow:inset 0 -8px 0 rgba(255,187,36,.09);}
+.phase-tabs button {color:#945000;border-color:#ffcf70;background:#fffbea;}
+.phase-tabs button.active {background:#ffbc38;border-color:#ffbc38;color:#603600;}
+.choice {background:linear-gradient(135deg,#fffef8,#fff5d6);border-color:#ffd080;box-shadow:0 8px 20px rgba(235,166,26,.08);color:#965000;}
+.choice:nth-child(2) {color:#8a6500;border-color:#ffe180;}
+.choice:nth-child(3) {color:#975700;border-color:#ffd268;}
+.choice:nth-child(4) {color:#ad5100;border-color:#ffbd75;}
+.choice.correct {background:#e8efdc!important;border-color:#698542!important;color:#304b1e!important;}
+.choice.wrong {background:#f9e2d9!important;border-color:#b65c43!important;color:#8b2d22!important;}
+.level-dot {background:#fff5cc;border-color:#ffd16e;color:#945000;}
+.level-dot.current {background:#ffc63d;color:#603600;border-color:#ffc63d;}
+.level-dot.passed {border-color:#7c8b4b;}
+.unit-lessons {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;}
+.lesson-pair {display:flex;flex-direction:column;gap:7px;min-width:0;}
+.lesson-pair .level-dot {width:100%;min-width:0;min-height:38px;padding:8px 4px;white-space:nowrap;}
+.level-dot.supplementary-tab:disabled {opacity:1;color:#937332;border:1px dashed #efc65d;background:#fff6d8;font-size:.86rem;cursor:default;}
+.unit-group {min-width:115px;}
+.progress-bar {background:#ffedb2;}
+.progress-fill {background:linear-gradient(90deg,#ffba28,#ffdf54);}
+.test-progress-fill {background:linear-gradient(90deg,#ff941f,#ffc841);}
+.current-level-card,.dash-card,.mini-stat {background:#fff6d3;border-color:#ffda8f;}
+.mode-pill.study {color:#945000;}
+.mode-pill.test {color:#a85a00;}
+</style>
+<style id="compact-questions">/* Smaller question text and full-width options on laptop/desktop screens. */
+.character {font-size:clamp(26px,9cqw,44px);min-height:140px;padding:20px 12px;}
+.character[data-kind="pinyin"] {font-size:clamp(22px,6cqw,30px);}
+.character.long-prompt {font-size:clamp(20px,5cqw,28px);}
+.choice.character-choice {font-size:20px;padding:10px 12px;min-height:52px;}
+.choice.pinyin-choice {font-size:17px;padding:10px 12px;min-height:52px;}
+.choice.definition-choice {padding:12px;min-height:70px;}
+.definition-chinese {font-size:17px;gap:7px 1px;font-weight:650;}
+.annotated-character {min-width:1.8em;}
+.annotation-pinyin {font-size:11px;line-height:1.5;}
+.annotation-hanzi {line-height:1.4;}
+@media(min-width:800px){
+  main {width:min(1120px,calc(100% - 40px));}
+  .practice {grid-template-columns:minmax(0,1fr) 270px;}
+  .choices,.choices.definition-choices {grid-template-columns:minmax(0,1fr);gap:10px;}
+  .choice.definition-choice {padding:11px 16px;}
+  .definition-chinese {flex-wrap:nowrap;}
+}
+</style>
+<style id="formal-intro-style">.formal-intro {box-sizing:border-box;width:min(530px,calc(100% - 32px));max-height:calc(100dvh - 40px);overflow:auto;padding:0;border:1px solid #ffd580;border-radius:24px;background:linear-gradient(145deg,#fffef8,#fff6d6);color:#3d3428;box-shadow:0 24px 80px rgba(108,65,5,.22);}
+.formal-intro::backdrop {background:rgba(61,45,20,.34);backdrop-filter:blur(4px);}
+.formal-intro-content {position:relative;padding:32px;}
+.formal-intro-close {position:absolute;top:12px;right:14px;border:0;background:transparent;color:#8c6a36;font:26px/1 sans-serif;padding:6px;min-width:32px;}
+.formal-intro-badge {display:inline-block;background:#ffe8a2;color:#8b4a00;padding:7px 11px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.08em;}
+.formal-intro h2 {font-size:28px;line-height:1.2;letter-spacing:-.02em;margin:18px 0 8px;color:#834700;}
+.formal-intro p {font-size:15px;line-height:1.6;}
+.formal-intro-lesson {font-weight:750;color:#a15d09;margin:0 0 14px;}
+.formal-intro-details {display:grid;gap:14px;background:rgba(255,255,255,.7);border:1px solid #f5dea6;border-radius:16px;padding:18px;margin:22px 0;}
+.formal-intro-details p {margin:0;}
+.formal-intro-details strong {display:block;color:#825116;font-size:14px;margin-bottom:2px;}
+.formal-intro-details span {color:#6b5b44;font-size:14px;}
+.formal-intro-actions {display:flex;gap:12px;}
+.formal-intro-actions button {flex:1;min-height:46px;border-radius:12px;font-size:15px;font-weight:750;}
+#formalIntroCancel {background:#fffdf7;border:1px solid #ebcb84;color:#8b5c1e;}
+#formalIntroStart {background:linear-gradient(135deg,#ffbd3d,#ffda63);border:1px solid #efac2b;color:#603600;box-shadow:0 4px 12px rgba(238,163,26,.15);}
+.formal-intro button:focus-visible {outline:3px solid #b96900;outline-offset:3px;}
+@media(max-width:480px){.formal-intro-content{padding:26px 20px;}.formal-intro h2{font-size:24px;}.formal-intro-actions{flex-direction:column-reverse;}}
+</style>
 </head>
 <body>
   <main>
@@ -1311,7 +1418,7 @@
         <h1>Harvest 中文学习</h1>
         <p class="subtitle">Textbook vocabulary practice · 6 units · 12 lessons</p>
         <p class="subtitle">Unit 1: School and Family 学校与家庭</p>
-        <span class="grade-lock-note">Lesson 1: Chinese is Fun! 我爱学中文 · 44 words</span>
+        <span class="grade-lock-note" id="lessonHeading"></span>
         
       </div>
       <div class="visual-card" aria-hidden="true">
@@ -1343,7 +1450,8 @@
 	          <button id="testModeButton" type="button">Start Formal Test</button>
 	        </div>
 	      </div>
-	      <button id="startTestButton" class="blue-button" type="button">Go Test</button>
+	      <p id="formalTestHint" class="formal-test-hint">Formal Test: Complete all questions to generate a result you can copy and paste to share with your teacher.</p>
+<button id="startTestButton" class="blue-button" type="button">Go Test</button>
 	      <div class="final-test-area">
         <button id="finalTestButton" class="blue-button" type="button">Final Test</button>
         
@@ -1446,18 +1554,53 @@
     </div>
   </main>
 
+<dialog id="formalIntro" class="formal-intro" aria-labelledby="formalIntroTitle" aria-describedby="formalIntroDescription">
+  <div class="formal-intro-content">
+    <button id="formalIntroClose" class="formal-intro-close" type="button" aria-label="Close and keep studying">×</button>
+    <span class="formal-intro-badge">HARVEST · FORMAL TEST</span>
+    <h2 id="formalIntroTitle">Ready to show what you know?</h2>
+    <p id="formalIntroLesson" class="formal-intro-lesson"></p>
+    <p id="formalIntroDescription">Choose the meaning that matches each word. Take your time and do your best!</p>
+    <div class="formal-intro-details">
+      <p><strong>Your goal</strong><span>Answer at least 90% correctly to pass.</span></p>
+      <p><strong>Learn as you go</strong><span>If you miss one, you’ll have 5 seconds to read the correct answer.</span></p>
+      <p><strong>Share your result</strong><span>Finish all questions to get your result. Tap “Copy Result,” then paste it to share with your teacher.</span></p>
+    </div>
+    <div class="formal-intro-actions">
+      <button id="formalIntroCancel" type="button" autofocus>Keep Studying</button>
+      <button id="formalIntroStart" type="button">Start Test</button>
+    </div>
+  </div>
+</dialog>
+
 <script>
-const vocabularyData=[{"character":"体会","pinyin":"tǐ huì","meaning":"to understand, experience","no":1},{"character":"首先","pinyin":"shǒu xiān","meaning":"first of all","no":2},{"character":"欣赏","pinyin":"xīn shǎng","meaning":"to appreciate","no":3},{"character":"实用性","pinyin":"shí yòng xìng","meaning":"practicality","no":4},{"character":"词汇","pinyin":"cí huì","meaning":"vocabulary","no":5},{"character":"固然","pinyin":"gù rán","meaning":"certainly, of course","no":6},{"character":"街道","pinyin":"jiē dào","meaning":"street","no":7},{"character":"超市","pinyin":"chāo shì","meaning":"supermarket","no":8},{"character":"篮球场","pinyin":"lán qiú chǎng","meaning":"basketball court","no":9},{"character":"自然","pinyin":"zì rán","meaning":"natural","no":10},{"character":"其次","pinyin":"qí cì","meaning":"secondly","no":11},{"character":"经验","pinyin":"jīng yàn","meaning":"experience","no":12},{"character":"证明","pinyin":"zhèng míng","meaning":"to prove","no":13},{"character":"围墙","pinyin":"wéi qiáng","meaning":"surrounding wall","no":14},{"character":"曾","pinyin":"céng","meaning":"ever","no":15},{"character":"留学","pinyin":"liú xué","meaning":"to study abroad","no":16},{"character":"姥姥","pinyin":"lǎo lao","meaning":"maternal grandmother","no":17},{"character":"姥爷","pinyin":"lǎo ye","meaning":"maternal grandfather","no":18},{"character":"聊天（儿）","pinyin":"liáo tiān(r)","meaning":"to chat","no":19},{"character":"火锅店","pinyin":"huǒ guō diàn","meaning":"hot-pot restaurant","no":20},{"character":"点菜","pinyin":"diǎn cài","meaning":"to order dishes in a restaurant","no":21},{"character":"上街","pinyin":"shàng jiē","meaning":"to go shopping","no":22},{"character":"购物","pinyin":"gòu wù","meaning":"to shop, to buy things","no":23},{"character":"开玩笑","pinyin":"kāi wán xiào","meaning":"to joke","no":24},{"character":"否认","pinyin":"fǒu rèn","meaning":"to deny","no":25},{"character":"小贩","pinyin":"xiǎo fàn","meaning":"street vendor, hawker","no":26},{"character":"服务员","pinyin":"fú wù yuán","meaning":"salesperson, waiter","no":27},{"character":"队友","pinyin":"duì yǒu","meaning":"teammate","no":28},{"character":"成语","pinyin":"chéng yǔ","meaning":"idiom, set expression","no":29},{"character":"方言","pinyin":"fāng yán","meaning":"dialect","no":30},{"character":"俚语","pinyin":"lǐ yǔ","meaning":"slang","no":31},{"character":"好像","pinyin":"hǎo xiàng","meaning":"to seem like","no":32},{"character":"不知不觉","pinyin":"bù zhī bù jué","meaning":"without realizing","no":33},{"character":"挑战性","pinyin":"tiǎo zhàn xìng","meaning":"challenge","no":34},{"character":"课本","pinyin":"kè běn","meaning":"textbook","no":35},{"character":"进步","pinyin":"jìn bù","meaning":"to progress, improve","no":36},{"character":"意味着","pinyin":"yì wèi zhe","meaning":"to mean","no":37},{"character":"勇气","pinyin":"yǒng qì","meaning":"courage","no":38},{"character":"师傅领进门，修行在个人","pinyin":"shī fu lǐng jìn mén, xiū xíng zài gè rén","meaning":"The master teaches the trade, but an apprentice is self-made.","no":39},{"character":"球队","pinyin":"qiú duì","meaning":"team (in a ball game)","no":40},{"character":"球星","pinyin":"qiú xīng","meaning":"star athlete (in a ball game)","no":41},{"character":"坚定","pinyin":"jiān dìng","meaning":"to strengthen, solidify","no":42},{"character":"害羞","pinyin":"hài xiū","meaning":"shy, timid","no":43},{"character":"有害无益","pinyin":"yǒu hài wú yì","meaning":"harmful, not beneficial","no":44}];
+const lessonData={"1.1": {"title": "Chinese is Fun! 我爱学中文", "words": [{"character": "体会", "pinyin": "tǐ huì", "meaning": "to understand, experience", "no": 1}, {"character": "首先", "pinyin": "shǒu xiān", "meaning": "first of all", "no": 2}, {"character": "欣赏", "pinyin": "xīn shǎng", "meaning": "to appreciate", "no": 3}, {"character": "实用性", "pinyin": "shí yòng xìng", "meaning": "practicality", "no": 4}, {"character": "词汇", "pinyin": "cí huì", "meaning": "vocabulary", "no": 5}, {"character": "固然", "pinyin": "gù rán", "meaning": "certainly, of course", "no": 6}, {"character": "街道", "pinyin": "jiē dào", "meaning": "street", "no": 7}, {"character": "超市", "pinyin": "chāo shì", "meaning": "supermarket", "no": 8}, {"character": "篮球场", "pinyin": "lán qiú chǎng", "meaning": "basketball court", "no": 9}, {"character": "自然", "pinyin": "zì rán", "meaning": "natural", "no": 10}, {"character": "其次", "pinyin": "qí cì", "meaning": "secondly", "no": 11}, {"character": "经验", "pinyin": "jīng yàn", "meaning": "experience", "no": 12}, {"character": "证明", "pinyin": "zhèng míng", "meaning": "to prove", "no": 13}, {"character": "围墙", "pinyin": "wéi qiáng", "meaning": "surrounding wall", "no": 14}, {"character": "曾", "pinyin": "céng", "meaning": "ever", "no": 15}, {"character": "留学", "pinyin": "liú xué", "meaning": "to study abroad", "no": 16}, {"character": "姥姥", "pinyin": "lǎo lao", "meaning": "maternal grandmother", "no": 17}, {"character": "姥爷", "pinyin": "lǎo ye", "meaning": "maternal grandfather", "no": 18}, {"character": "聊天（儿）", "pinyin": "liáo tiān(r)", "meaning": "to chat", "no": 19}, {"character": "火锅店", "pinyin": "huǒ guō diàn", "meaning": "hot-pot restaurant", "no": 20}, {"character": "点菜", "pinyin": "diǎn cài", "meaning": "to order dishes in a restaurant", "no": 21}, {"character": "上街", "pinyin": "shàng jiē", "meaning": "to go shopping", "no": 22}, {"character": "购物", "pinyin": "gòu wù", "meaning": "to shop, to buy things", "no": 23}, {"character": "开玩笑", "pinyin": "kāi wán xiào", "meaning": "to joke", "no": 24}, {"character": "否认", "pinyin": "fǒu rèn", "meaning": "to deny", "no": 25}, {"character": "小贩", "pinyin": "xiǎo fàn", "meaning": "street vendor, hawker", "no": 26}, {"character": "服务员", "pinyin": "fú wù yuán", "meaning": "salesperson, waiter", "no": 27}, {"character": "队友", "pinyin": "duì yǒu", "meaning": "teammate", "no": 28}, {"character": "成语", "pinyin": "chéng yǔ", "meaning": "idiom, set expression", "no": 29}, {"character": "方言", "pinyin": "fāng yán", "meaning": "dialect", "no": 30}, {"character": "俚语", "pinyin": "lǐ yǔ", "meaning": "slang", "no": 31}, {"character": "好像", "pinyin": "hǎo xiàng", "meaning": "to seem like", "no": 32}, {"character": "不知不觉", "pinyin": "bù zhī bù jué", "meaning": "without realizing", "no": 33}, {"character": "挑战性", "pinyin": "tiǎo zhàn xìng", "meaning": "challenge", "no": 34}, {"character": "课本", "pinyin": "kè běn", "meaning": "textbook", "no": 35}, {"character": "进步", "pinyin": "jìn bù", "meaning": "to progress, improve", "no": 36}, {"character": "意味着", "pinyin": "yì wèi zhe", "meaning": "to mean", "no": 37}, {"character": "勇气", "pinyin": "yǒng qì", "meaning": "courage", "no": 38}, {"character": "师傅领进门，修行在个人", "pinyin": "shī fu lǐng jìn mén, xiū xíng zài gè rén", "meaning": "The master teaches the trade, but an apprentice is self-made.", "no": 39}, {"character": "球队", "pinyin": "qiú duì", "meaning": "team (in a ball game)", "no": 40}, {"character": "球星", "pinyin": "qiú xīng", "meaning": "star athlete (in a ball game)", "no": 41}, {"character": "坚定", "pinyin": "jiān dìng", "meaning": "to strengthen, solidify", "no": 42}, {"character": "害羞", "pinyin": "hài xiū", "meaning": "shy, timid", "no": 43}, {"character": "有害无益", "pinyin": "yǒu hài wú yì", "meaning": "harmful, not beneficial", "no": 44}], "definitions": [["亲自感受", "qīn zì gǎn shòu"], ["第一步", "dì yī bù"], ["觉得好而喜欢", "jué de hǎo ér xǐ huan"], ["有用的程度", "yǒu yòng de chéng dù"], ["语言里的词语", "yǔ yán lǐ de cí yǔ"], ["虽然如此", "suī rán rú cǐ"], ["城里通行的路", "chéng lǐ tōng xíng de lù"], ["自选商品的商店", "zì xuǎn shāng pǐn de shāng diàn"], ["打篮球的地方", "dǎ lán qiú de dì fang"], ["轻松不做作", "qīng sōng bú zuò zuo"], ["接着的第二点", "jiē zhe de dì èr diǎn"], ["做事积累的知识", "zuò shì jī lěi de zhī shi"], ["用事实说明", "yòng shì shí shuō míng"], ["围住院子的墙", "wéi zhù yuàn zi de qiáng"], ["以前有过", "yǐ qián yǒu guo"], ["到外国学习", "dào wài guó xué xí"], ["妈妈的妈妈", "mā ma de mā ma"], ["妈妈的爸爸", "mā ma de bà ba"], ["轻松地说话", "qīng sōng de shuō huà"], ["吃火锅的饭店", "chī huǒ guō de fàn diàn"], ["在饭店选菜", "zài fàn diàn xuǎn cài"], ["到街上逛逛", "dào jiē shang guàng guang"], ["买东西", "mǎi dōng xi"], ["说笑逗人开心", "shuō xiào dòu rén kāi xīn"], ["不承认", "bù chéng rèn"], ["摆摊卖东西的人", "bǎi tān mài dōng xi de rén"], ["招待客人的人", "zhāo dài kè rén de rén"], ["同一个队的人", "tóng yí ge duì de rén"], ["常用的固定短语", "cháng yòng de gù dìng duǎn yǔ"], ["一个地方的话", "yí ge dì fang de huà"], ["民间流行的俗话", "mín jiān liú xíng de sú huà"], ["看起来像", "kàn qǐ lái xiàng"], ["没有察觉", "méi yǒu chá jué"], ["需要努力的难度", "xū yào nǔ lì de nán dù"], ["上课用的书", "shàng kè yòng de shū"], ["比以前更好", "bǐ yǐ qián gèng hǎo"], ["表示某种意思", "biǎo shì mǒu zhǒng yì si"], ["不怕困难的精神", "bú pà kùn nan de jīng shén"], ["老师引路，学靠自己", "lǎo shī yǐn lù xué kào zì jǐ"], ["一起打球的队伍", "yì qǐ dǎ qiú de duì wu"], ["有名的球类选手", "yǒu míng de qiú lèi xuǎn shǒu"], ["使信心更稳固", "shǐ xìn xīn gèng wěn gù"], ["觉得不好意思", "jué de bù hǎo yì si"], ["只有坏处没有好处", "zhǐ yǒu huài chu méi yǒu hǎo chu"]]}, "1.1副": {"title": "1.1副 · 补充词汇", "words": [{"character": "淡", "pinyin": "dàn", "meaning": "bland, tasteless", "no": 1}, {"character": "声调", "pinyin": "shēng diào", "meaning": "tone", "no": 2}, {"character": "儿化音", "pinyin": "ér huà yīn", "meaning": "r-sound", "no": 3}, {"character": "老板", "pinyin": "lǎo bǎn", "meaning": "boss", "no": 4}, {"character": "意识", "pinyin": "yì shí", "meaning": "to be aware, conscious of; to realize", "no": 5}, {"character": "钱币", "pinyin": "qián bì", "meaning": "coin", "no": 6}, {"character": "拦路虎", "pinyin": "lán lù hǔ", "meaning": "hindrance, obstacle", "no": 7}, {"character": "津津有味", "pinyin": "jīn jīn yǒu wèi", "meaning": "with great interest; with keen pleasure", "no": 8}, {"character": "脱口而出", "pinyin": "tuō kǒu ér chū", "meaning": "blurt out", "no": 9}, {"character": "胸有成竹", "pinyin": "xiōng yǒu chéng zhú", "meaning": "have a well-thought-out plan in one's mind", "no": 10}, {"character": "捉迷藏", "pinyin": "zhuō mí cáng", "meaning": "hide and seek; blindman's buff", "no": 11}, {"character": "兴高采烈", "pinyin": "xìng gāo cǎi liè", "meaning": "in high spirits; excited", "no": 12}, {"character": "无地自容", "pinyin": "wú dì zì róng", "meaning": "feel extremely ashamed", "no": 13}, {"character": "辅导", "pinyin": "fǔ dǎo", "meaning": "to tutor; tutoring", "no": 14}, {"character": "侃大山", "pinyin": "kǎn dà shān", "meaning": "shoot the breeze; chat", "no": 15}, {"character": "天南海北", "pinyin": "tiān nán hǎi běi", "meaning": "a wide range of places or topics", "no": 16}, {"character": "市民", "pinyin": "shì mín", "meaning": "urban resident", "no": 17}, {"character": "见识", "pinyin": "jiàn shi", "meaning": "knowledge about various things; experience", "no": 18}], "definitions": [["味道不浓", "wèi dào bù nóng"], ["说话声音的高低变化", "shuō huà shēng yīn de gāo dī biàn huà"], ["带儿尾的发音", "dài ér wěi de fā yīn"], ["经营商店或公司的人", "jīng yíng shāng diàn huò gōng sī de rén"], ["察觉到", "chá jué dào"], ["金属做的钱", "jīn shǔ zuò de qián"], ["挡住前进的困难", "dǎng zhù qián jìn de kùn nan"], ["很感兴趣的样子", "hěn gǎn xìng qù de yàng zi"], ["没多想就说出来", "méi duō xiǎng jiù shuō chū lái"], ["已有计划很有把握", "yǐ yǒu jì huà hěn yǒu bǎ wò"], ["一人找别人藏的游戏", "yì rén zhǎo bié rén cáng de yóu xì"], ["非常高兴", "fēi cháng gāo xìng"], ["羞得想躲起来", "xiū de xiǎng duǒ qǐ lái"], ["帮助学习", "bāng zhù xué xí"], ["随意聊天", "suí yì liáo tiān"], ["各地或各种话题", "gè dì huò gè zhǒng huà tí"], ["住在城市的人", "zhù zài chéng shì de rén"], ["经历中得到的知识", "jīng lì zhōng dé dào de zhī shi"]]}};
+let vocabularyData=lessonData["1.1"].words;
+let formalDefinitions=lessonData["1.1"].definitions;
 const $=id=>document.getElementById(id);
-const storageKey='harvest-v1-progress';
+let currentLesson='1.1';
+let storageKey='harvest-v1-progress';
 let saved={passed:false,missed:[],attempts:[]};
 try {const v=JSON.parse(localStorage.getItem(storageKey));if(v&&v.textbook==='Harvest')saved=v;}catch{}
 let mode='study',studyItems=vocabularyData,studyIndex=0,queue=[],position=0,score=0,missed=0,answered=false,complete=false,reviewing=false;
 let advanceTimer=null;
+let formalStartedAt=null;
 const autoAdvanceModes=new Set(['practice','pretest','formal']);
 function cancelAdvance(){if(advanceTimer!==null){clearTimeout(advanceTimer);advanceTimer=null;}}
 const shuffled=items=>{const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
-function save(){try{localStorage.setItem(storageKey,JSON.stringify({...saved,textbook:'Harvest',version:1}));}catch{}}
+function save(){try{localStorage.setItem(storageKey,JSON.stringify({...saved,textbook:'Harvest',lesson:currentLesson,version:1}));}catch{}}
+function progressForLesson(id){
+  try{const v=JSON.parse(localStorage.getItem(id==='1.1'?'harvest-v1-progress':'harvest-v1-progress-'+id));if(v&&v.textbook==='Harvest'&&typeof v.passed==='boolean'&&Array.isArray(v.missed)&&Array.isArray(v.attempts))return v;}catch{}
+  return {passed:false,missed:[],attempts:[]};
+}
+function selectLesson(id){
+  if(!lessonData[id])return;
+  cancelAdvance();save();currentLesson=id;
+  storageKey=id==='1.1'?'harvest-v1-progress':'harvest-v1-progress-'+id;
+  vocabularyData=lessonData[id].words;formalDefinitions=lessonData[id].definitions;saved=progressForLesson(id);
+  queue=[];position=0;score=0;missed=0;answered=false;complete=false;
+  renderMenu();study();
+}
 function show(id,visible){$(id).style.display=visible?'':'none';}
 function renderMenu(){
   $('topLevelTracker').replaceChildren();$('levelJumpSelect').replaceChildren();
@@ -1466,29 +1609,38 @@ function renderMenu(){
     const label=document.createElement('strong');label.textContent='Unit '+unit;group.append(label);
     const lessons=document.createElement('div');lessons.className='unit-lessons';
     for(let lesson=1;lesson<=2;lesson++){
-      const ready=unit===1&&lesson===1;
-      const b=document.createElement('button');b.className='level-dot'+(ready?' current':'')+(ready&&saved.passed?' passed':'');b.textContent=unit+'.'+lesson;b.disabled=!ready;
-      b.title=ready?'Chinese is Fun! — 44 words':'Coming soon';b.setAttribute('aria-label',`Unit ${unit}, Lesson ${lesson}: ${ready?'44 words':'Coming soon'}`);b.setAttribute('aria-pressed',String(ready));b.onclick=()=>study();lessons.append(b);
-      const option=document.createElement('option');option.value=unit+'.'+lesson;option.textContent=`Unit ${unit}, Lesson ${lesson} (${ready?'44 words':'Coming soon'})`;option.disabled=!ready;$('levelJumpSelect').append(option);
+      const id=unit+'.'+lesson,extraId=id+'副';
+      const ready=Boolean(lessonData[id]),extraReady=Boolean(lessonData[extraId]);
+      const b=document.createElement('button');b.className='level-dot'+(currentLesson===id?' current':'')+(ready&&progressForLesson(id).passed?' passed':'');b.textContent=id;b.disabled=!ready;
+      b.title=ready?lessonData[id].title+' — '+lessonData[id].words.length+' words':'Coming soon';b.setAttribute('aria-label',`${id}: ${ready?lessonData[id].words.length+' words':'Coming soon'}`);b.setAttribute('aria-pressed',String(currentLesson===id));b.onclick=()=>selectLesson(id);
+      const pair=document.createElement('div');pair.className='lesson-pair';pair.append(b);
+      const supplementary=document.createElement('button');supplementary.type='button';supplementary.className='level-dot supplementary-tab'+(currentLesson===extraId?' current':'')+(extraReady&&progressForLesson(extraId).passed?' passed':'');supplementary.textContent=extraId;supplementary.disabled=!extraReady;
+      supplementary.title=extraReady?lessonData[extraId].words.length+' 个补充词汇':'补充词汇待添加';supplementary.setAttribute('aria-label',extraId+'：'+supplementary.title);supplementary.setAttribute('aria-pressed',String(currentLesson===extraId));supplementary.onclick=()=>selectLesson(extraId);pair.append(supplementary);lessons.append(pair);
+      const option=document.createElement('option');option.value=id;option.textContent=`Unit ${unit}, Lesson ${lesson} (${ready?lessonData[id].words.length+' words':'Coming soon'})`;option.disabled=!ready;$('levelJumpSelect').append(option);
+      const extraOption=document.createElement('option');extraOption.value=extraId;extraOption.textContent=extraId+(extraReady?'（'+lessonData[extraId].words.length+' 个词）':'（补充词汇待添加）');extraOption.disabled=!extraReady;$('levelJumpSelect').append(extraOption);
     }
     group.append(lessons);$('topLevelTracker').append(group);
   }
-  $('topLevelCurrent').textContent='Unit 1 · Lesson 1';
+  $('levelJumpSelect').value=currentLesson;
+  $('topLevelCurrent').textContent='Current Lesson: '+currentLesson;
+  $('lessonHeading').textContent=lessonData[currentLesson].title+' · '+vocabularyData.length+' words';
 }
 function renderList(){
   $('vocabList').replaceChildren();
   studyItems.forEach(item=>{const row=document.createElement('div');row.className='vocab-item';const word=document.createElement('b');word.textContent=item.character;const info=document.createElement('span');info.textContent=item.pinyin;const meaning=document.createElement('small');meaning.textContent=item.meaning;info.append(meaning);row.append(word,info);row.onclick=()=>{studyIndex=studyItems.indexOf(item);card();};$('vocabList').append(row);});
 }
-function card(){const w=studyItems[studyIndex];$('studyWord').textContent=w.character;$('studyWord').classList.toggle('long-word',w.character.length>7);$('studyPinyin').textContent=w.pinyin;$('studyMeaning').textContent=w.meaning;$('promptLabel').className='prompt-label active';$('promptLabel').textContent=(reviewing?'Missed Words · ':'Unit 1, Lesson 1 · ')+(studyIndex+1)+' / '+studyItems.length;}
+function card(){const w=studyItems[studyIndex];$('studyWord').textContent=w.character;$('studyWord').classList.toggle('long-word',w.character.length>7);$('studyPinyin').textContent=w.pinyin;$('studyMeaning').textContent=w.meaning;$('promptLabel').className='prompt-label active';$('promptLabel').textContent=(reviewing?'Missed Words · ':'Lesson '+currentLesson+' · ')+(studyIndex+1)+' / '+studyItems.length;}
 function dashboard(){
   $('score').textContent=score;$('missed').textContent=missed;$('progress').textContent=position+'/'+queue.length;
   $('dashWords').textContent=score+'/'+queue.length;$('dashAnswered').textContent=missed;$('dashNeeded').textContent=Math.ceil(queue.length*.9)+'/'+queue.length;$('dashNeededLabel').textContent='Needed to pass';
-  $('dashGrade').textContent='Harvest';$('dashLevel').textContent='1.1';$('studyCurrentGrade').textContent='Harvest';$('studyCurrentLevel').textContent='1.1';$('studyLevelPosition').textContent='1/12';$('studyWordCount').textContent=studyItems.length;$('studyProgressFill').style.width=(saved.passed?100/12:0)+'%';
-  const bar=$('studyProgressFill').parentElement;bar.setAttribute('role','progressbar');bar.setAttribute('aria-valuemin','0');bar.setAttribute('aria-valuemax','12');bar.setAttribute('aria-valuenow',saved.passed?'1':'0');
-  document.querySelector('.progress-caption').textContent='Textbook progress: '+(saved.passed?1:0)+' of 12 lessons passed';
+  $('dashGrade').textContent='Harvest';$('dashLevel').textContent=currentLesson;$('studyCurrentGrade').textContent='Harvest';$('studyCurrentLevel').textContent=currentLesson;$('studyLevelPosition').textContent=currentLesson;$('studyWordCount').textContent=studyItems.length;
+  const passedMain=Object.keys(lessonData).filter(id=>!id.endsWith('副')&&progressForLesson(id).passed).length;
+  $('studyProgressFill').style.width=passedMain/12*100+'%';
+  const bar=$('studyProgressFill').parentElement;bar.setAttribute('role','progressbar');bar.setAttribute('aria-valuemin','0');bar.setAttribute('aria-valuemax','12');bar.setAttribute('aria-valuenow',String(passedMain));
+  document.querySelector('.progress-caption').textContent='Textbook progress: '+passedMain+' of 12 main lessons passed';
   $('progressFill').style.width=(queue.length?position/queue.length*100:0)+'%';
   for(const id of ['studyMissedButton','reviewMissedButton','studyPanelReviewMissedButton']){$(id).disabled=!saved.missed.length;$(id).textContent=(id==='studyMissedButton'?'Study':'Test')+' Missed Words'+(saved.missed.length?' ('+saved.missed.length+')':'');}
-  $('finalTestButton').textContent='Review Test';$('finalTestNote').textContent='44 available words · Unit 1, Lesson 1. More lessons coming soon.';
+  $('finalTestButton').textContent='Review Test';$('finalTestNote').textContent=vocabularyData.length+' available words · Lesson '+currentLesson;
 }
 function setMode(next){
   cancelAdvance();
@@ -1502,7 +1654,16 @@ function setMode(next){
   $('startTestButton').textContent=isStudy?'Go Test':'Go Study';$('choices').replaceChildren();$('feedback').textContent='';$('feedback').className='feedback';
 }
 function study(onlyMissed=false){reviewing=onlyMissed;studyItems=onlyMissed?vocabularyData.filter(w=>saved.missed.includes(w.no)):vocabularyData;if(!studyItems.length)studyItems=vocabularyData;studyIndex=0;setMode('study');renderList();card();dashboard();}
-function start(next='formal',onlyMissed=false){reviewing=onlyMissed;queue=shuffled(onlyMissed?vocabularyData.filter(w=>saved.missed.includes(w.no)):vocabularyData);if(!queue.length)return;position=0;score=0;missed=0;complete=false;setMode(next);question();}
+function start(next='formal',onlyMissed=false,confirmed=false){
+  if(next==='formal'&&!confirmed){
+    cancelAdvance();
+    $('formalIntroLesson').textContent='Lesson '+currentLesson+' · '+vocabularyData.length+' questions';
+    $('formalIntroStart').onclick=()=>{$('formalIntro').close();start('formal',onlyMissed,true);};
+    $('formalIntro').showModal();return;
+  }
+  formalStartedAt=next==='formal'?new Date().toISOString():null;
+  reviewing=onlyMissed;queue=shuffled(onlyMissed?vocabularyData.filter(w=>saved.missed.includes(w.no)):vocabularyData);if(!queue.length)return;position=0;score=0;missed=0;complete=false;setMode(next);question();
+}
 // Optional 儿 is displayed as an erhua ending, not a separate syllable.
 const hanCount=text=>(text.replace(/[（(][^）)]*[）)]/gu,'').match(/\p{Script=Han}/gu)||[]).length;
 const extraChoices=[
@@ -1517,7 +1678,7 @@ const extraChoices=[
 function matchingChoices(word,reverse){
   const field=reverse?'character':'pinyin';
   const seen=new Set([word[field]]);
-  const candidates=[...shuffled(vocabularyData),...shuffled(extraChoices)];
+  const candidates=[...shuffled(vocabularyData),...shuffled(extraChoices)].map((item,index)=>({...item,no:item.no??-(index+1)}));
   const result=[];
   for(const item of candidates){
     if(hanCount(item.character)!==hanCount(word.character)||seen.has(item[field]))continue;
@@ -1527,23 +1688,47 @@ function matchingChoices(word,reverse){
   if(result.length!==3)throw Error('Missing same-length choices for '+word.character);
   return shuffled([word,...result]);
 }
+function definitionChoices(word){
+  const candidates=shuffled(vocabularyData.filter(v=>v.no!==word.no));
+  return shuffled([word,...candidates.slice(0,3)]);
+}
 function question(){
   answered=false;const w=queue[position];$('promptLabel').className='prompt-label active';const reverse=mode==='practice';
-  $('promptLabel').textContent=reverse?'Choose the Chinese word for this pinyin.':mode==='pretest'?'Choose the pinyin. Pre-Test does not change saved progress.':'Choose the correct pinyin.';
+  $('promptLabel').textContent=mode==='formal'?'请选择这个词的正确中文解释。':reverse?'Choose the Chinese word for this pinyin.':mode==='pretest'?'Choose the pinyin. Pre-Test does not change saved progress.':'Choose the correct pinyin.';
   $('prompt').textContent=reverse?w.pinyin:w.character;
   $('prompt').dataset.kind=reverse?'pinyin':'chinese';
   $('prompt').classList.toggle('long-prompt',hanCount(w.character)>6);
   $('choices').replaceChildren();$('feedback').textContent='';$('feedback').className='feedback';$('nextButton').textContent='Next Question';$('nextButton').disabled=true;
   const field=reverse?'character':'pinyin';
-  matchingChoices(w,reverse).forEach(item=>{const b=document.createElement('button');b.className='choice '+(reverse?'character-choice':'pinyin-choice');b.textContent=item[field];b.onclick=()=>answer(item.no,b);$('choices').append(b);});
+  const formal=mode==='formal';
+  $('choices').classList.toggle('definition-choices',formal);
+  (formal?definitionChoices(w):matchingChoices(w,reverse)).forEach(item=>{
+    const b=document.createElement('button');b.dataset.answerNo=String(item.no);
+    b.className='choice '+(formal?'definition-choice':reverse?'character-choice':'pinyin-choice');
+    if(formal){
+      const definition=formalDefinitions[item.no-1];
+      const chinese=document.createElement('span');chinese.className='definition-chinese';chinese.lang='zh-CN';
+      const syllables=definition[1].trim().split(/\s+/);let syllableIndex=0;
+      for(const character of definition[0]){
+        if(/\p{Script=Han}/u.test(character)){
+          const ruby=document.createElement('span');ruby.className='annotated-character';
+          const base=document.createElement('span');base.className='annotation-hanzi';base.textContent=character;
+          const rt=document.createElement('span');rt.className='annotation-pinyin';rt.textContent=syllables[syllableIndex++];
+          ruby.append(rt,base);chinese.append(ruby);
+        }else{const punctuation=document.createElement('span');punctuation.textContent=character;chinese.append(punctuation);}
+      }
+      b.append(chinese);
+    }else b.textContent=item[field];
+    b.onclick=()=>answer(item.no,b);$('choices').append(b);
+  });
   $('dashboardNote').textContent=mode==='practice'?'Practice pinyin to Chinese. Practice and Pre-Test do not change saved progress.':'The word list is hidden during the test. Pass with at least 90% correct.';dashboard();
 }
 function answer(no,button){if(answered||complete)return;answered=true;const w=queue[position];const correct=no===w.no;score+=Number(correct);missed+=Number(!correct);
-  const options=[...$('choices').children];options.forEach(b=>{b.disabled=true;if(b.textContent===(mode==='practice'?w.character:w.pinyin))b.classList.add('correct');});
+  const options=[...$('choices').children];options.forEach(b=>{b.disabled=true;if(Number(b.dataset.answerNo)===w.no)b.classList.add('correct');});
   if(!correct)button.classList.add('wrong');
   const persistent=['formal','final','review'].includes(mode);
   if(persistent){if(!correct&&!saved.missed.includes(w.no))saved.missed.push(w.no);else if(correct&&mode==='review')saved.missed=saved.missed.filter(n=>n!==w.no);save();}
-  $('feedback').textContent=(correct?'Correct! ':'Keep practicing. ')+w.character+' · '+w.pinyin+' · '+w.meaning;$('feedback').className='feedback '+(correct?'good':'bad');position++;$('nextButton').disabled=false;$('nextButton').textContent=position===queue.length?'See Results':'Next Question';dashboard();
+  $('feedback').textContent=mode==='formal'?(correct?'答对了！ ':'正确解释：')+w.character+'：'+formalDefinitions[w.no-1][0]+' ('+formalDefinitions[w.no-1][1]+')':(correct?'Correct! ':'Keep practicing. ')+w.character+' · '+w.pinyin+' · '+w.meaning;$('feedback').className='feedback '+(correct?'good':'bad');position++;$('nextButton').disabled=false;$('nextButton').textContent=position===queue.length?'See Results':'Next Question';dashboard();
   if(autoAdvanceModes.has(mode)){
     $('feedback').textContent+=correct?' Next question shortly.':' Read the correct answer. Continuing in 5 seconds.';
     advanceTimer=setTimeout(()=>{advanceTimer=null;if(position===queue.length)finish();else question();},correct?800:5000);
@@ -1551,6 +1736,19 @@ function answer(no,button){if(answered||complete)return;answered=true;const w=qu
 }
 function finish(){cancelAdvance();complete=true;show('nextButton',true);const passed=score/queue.length>=.9;if(['formal','final','review'].includes(mode)){saved.attempts.push({mode,correct:score,total:queue.length,date:new Date().toISOString()});if(mode==='formal'&&passed)saved.passed=true;save();renderMenu();}
   $('choices').replaceChildren();$('prompt').textContent=passed?'完成！':'继续加油！';$('feedback').textContent=`${score}/${queue.length} correct (${Math.round(score/queue.length*100)}%). `+(passed?'Great work!':'Review the words and try again. You need 90% to pass.');$('feedback').className='feedback '+(passed?'good':'bad');$('nextButton').textContent='Back to Study';dashboard();
+  if(mode==='formal')showFormalResult(passed);
+}
+function showFormalResult(passed){
+  const completedAt=new Date();
+  const report=['Harvest — Formal Test Result','Lesson: '+currentLesson,'Score: '+score+'/'+queue.length,'Percentage: '+Math.round(score/queue.length*100)+'%','Result: '+(passed?'Passed':'Not passed')+' (90% required)','Started: '+new Date(formalStartedAt).toLocaleString(),'Completed: '+completedAt.toLocaleString()].join('\n');
+  const panel=document.createElement('section');panel.className='formal-result';
+  const title=document.createElement('h3');title.textContent='Your Formal Test Result';
+  const note=document.createElement('p');note.textContent='Copy and paste this result to share with your teacher.';
+  const text=document.createElement('textarea');text.value=report;text.readOnly=true;text.rows=8;text.setAttribute('aria-label','Formal Test result to copy');
+  const button=document.createElement('button');button.type='button';button.className='primary';button.textContent='Copy Result';
+  const status=document.createElement('p');status.setAttribute('role','status');
+  button.onclick=async()=>{try{await navigator.clipboard.writeText(report);status.textContent='Result copied! You can now paste it.';}catch{text.focus();text.select();status.textContent='Select the result and press Command+C (Mac) or Ctrl+C (Windows), then paste it.';}};
+  panel.append(title,note,text,button,status);$('feedback').append(panel);
 }
 $('nextButton').onclick=()=>{if(complete){study();return;}if(!answered)return;if(position===queue.length)finish();else question();};
 $('previousStudyButton').onclick=()=>{studyIndex=(studyIndex-1+studyItems.length)%studyItems.length;card();};
@@ -1558,12 +1756,20 @@ $('nextStudyButton').onclick=()=>{studyIndex=(studyIndex+1)%studyItems.length;ca
 $('shuffleStudyButton').onclick=()=>{studyIndex=Math.floor(Math.random()*studyItems.length);card();};
 $('studyModeButton').onclick=()=>study();$('practiceGameButton').onclick=()=>start('practice');$('preTestModeButton').onclick=()=>start('pretest');$('testModeButton').onclick=()=>start('formal');$('startTestButton').onclick=()=>mode==='study'?start('formal'):study();$('finalTestButton').onclick=()=>start('final');$('restartButton').onclick=()=>start(mode,reviewing);
 $('studyMissedButton').onclick=()=>study(true);$('reviewMissedButton').onclick=$('studyPanelReviewMissedButton').onclick=()=>start('review',true);
-function downloadProgress(){const blob=new Blob([JSON.stringify({...saved,textbook:'Harvest',version:1},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Harvest_Progress.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
+function downloadProgress(){const blob=new Blob([JSON.stringify({...saved,textbook:'Harvest',lesson:currentLesson,version:1},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Harvest_'+currentLesson+'_Progress.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
 for(const id of ['studyExportProgressButton','exportProgressButton'])$(id).onclick=downloadProgress;
 for(const id of ['studyImportProgressButton','importProgressButton'])$(id).onclick=()=>$('importProgressInput').click();
-$('importProgressInput').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;const v=JSON.parse(await file.text());if(v.textbook!=='Harvest'||v.version!==1||typeof v.passed!=='boolean'||!Array.isArray(v.missed)||v.missed.some(n=>!Number.isInteger(n)||n<1||n>44)||!Array.isArray(v.attempts))throw Error('Please select a Harvest progress file.');saved={passed:v.passed,missed:[...new Set(v.missed)],attempts:v.attempts};save();renderMenu();study();$('feedback').textContent='Harvest progress imported.';}catch(err){$('feedback').textContent='Could not import progress. '+err.message;}finally{e.target.value='';}};
-$('levelJumpSelect').onchange=()=>study();$('modalCloseButton').onclick=()=>$('celebrationModal').classList.remove('active');
+$('importProgressInput').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;const v=JSON.parse(await file.text());if(v.textbook!=='Harvest'||(v.lesson||'1.1')!==currentLesson||v.version!==1||typeof v.passed!=='boolean'||!Array.isArray(v.missed)||v.missed.some(n=>!Number.isInteger(n)||n<1||n>vocabularyData.length)||!Array.isArray(v.attempts))throw Error('Please select a Harvest progress file.');saved={passed:v.passed,missed:[...new Set(v.missed)],attempts:v.attempts};save();renderMenu();study();$('feedback').textContent='Harvest progress imported.';}catch(err){$('feedback').textContent='Could not import progress. '+err.message;}finally{e.target.value='';}};
+$('levelJumpSelect').onchange=()=>selectLesson($('levelJumpSelect').value);$('modalCloseButton').onclick=()=>$('celebrationModal').classList.remove('active');
+function closeFormalIntro(){$('formalIntro').close();study();}
+$('formalIntroCancel').onclick=closeFormalIntro;
+$('formalIntroClose').onclick=closeFormalIntro;
+$('formalIntro').oncancel=event=>{event.preventDefault();closeFormalIntro();};
 renderMenu();study();
+if(typeof location!=='undefined'){
+  const requested=new URLSearchParams(location.search).get('lesson');
+  if(requested&&lessonData[requested])selectLesson(requested);
+}
 
 </script>
 </body>
