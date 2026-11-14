@@ -1445,6 +1445,24 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <style id="formal-definitions">
 .choice.definition-choice {display:flex;flex-direction:column;gap:9px;justify-content:center;align-items:stretch;text-align:left;min-width:0;max-width:100%;height:auto;padding:18px;border-radius:18px;white-space:normal;overflow-wrap:anywhere;line-height:1.55;}
 .definition-chinese {display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 2px;font-size:clamp(20px,4.4cqw,26px);font-weight:750;line-height:1.4;overflow-wrap:normal;word-break:normal;}
@@ -1661,6 +1679,8 @@ header {border-color:#ffda8f;background:linear-gradient(135deg,#fffef8,#fff0b4);
 
 
 
+
+
 	      </div>
 	      <p id="formalTestHint" class="formal-test-hint">Formal Test: Complete all questions to generate a result you can copy and paste to share with your teacher.</p>
 <button id="startTestButton" class="blue-button" type="button">Go Test</button>
@@ -1674,6 +1694,14 @@ header {border-color:#ffda8f;background:linear-gradient(135deg,#fffef8,#fff0b4);
     </section>
 
     
+
+
+
+
+
+
+
+
 
 
 
@@ -1893,6 +1921,10 @@ header {border-color:#ffda8f;background:linear-gradient(135deg,#fffef8,#fff0b4);
 
 
 
+
+
+
+
 <dialog id="formalIntro" class="formal-intro" aria-labelledby="formalIntroTitle" aria-describedby="formalIntroDescription">
   <div class="formal-intro-content">
     <button id="formalIntroClose" class="formal-intro-close" type="button" aria-label="Close and keep studying">×</button>
@@ -2054,7 +2086,8 @@ function study(onlyMissed=false){reviewing=onlyMissed;studyItems=onlyMissed?voca
 function start(next='formal',onlyMissed=false,confirmed=false){
   if(next==='formal'&&!confirmed){
     cancelAdvance();
-    $('formalIntroLesson').textContent='Lesson '+currentLesson+' · '+vocabularyData.length+' questions';
+    $('formalIntroDescription').textContent=currentLesson==='1.2'?'For each word, choose its pinyin, then its Chinese meaning. Both steps must be correct for a word to count. Get at least 90% of words correct to pass.':'Choose the meaning that matches each word. Take your time and do your best!';
+    $('formalIntroLesson').textContent='Lesson '+currentLesson+' · '+vocabularyData.length+(currentLesson==='1.2'?' words · 2 steps per word':' questions');
     $('formalIntroStart').onclick=()=>{$('formalIntro').close();start('formal',onlyMissed,true);};
     $('formalIntro').showModal();return;
   }
@@ -2090,7 +2123,7 @@ function definitionChoices(word){
   return shuffled([word,...candidates.slice(0,3)]);
 }
 function question(){
-  if(currentLesson==='1.2'&&(mode==='practice'||mode==='pretest')){renderEnhancedPreviewQuestion();return;}
+  if(currentLesson==='1.2'&&(mode==='practice'||mode==='pretest'||mode==='formal')){renderEnhancedPreviewQuestion();return;}
   answered=false;const w=queue[position];$('promptLabel').className='prompt-label active';const reverse=mode==='practice';
   $('promptLabel').textContent=mode==='formal'?'Choose the correct Chinese meaning of this word.':reverse?'Choose the Chinese word for this pinyin.':mode==='pretest'?'Choose the pinyin. Pre-Test does not change saved progress.':'Choose the correct pinyin.';
   $('prompt').textContent=reverse?w.pinyin:w.character;
@@ -2121,7 +2154,7 @@ function question(){
   });
   $('dashboardNote').textContent=mode==='practice'?'Practice pinyin to Chinese. Practice and Pre-Test do not change saved progress.':'The word list is hidden during the test. Pass with at least 90% correct.';dashboard();
 }
-function answer(no,button){if(currentLesson==='1.2'&&mode==='pretest'){answerEnhancedPretest(no,button);return;}if(answered||complete)return;answered=true;const w=queue[position];const correct=no===w.no;score+=Number(correct);missed+=Number(!correct);
+function answer(no,button){if(currentLesson==='1.2'&&(mode==='pretest'||mode==='formal')){answerEnhancedPretest(no,button);return;}if(answered||complete)return;answered=true;const w=queue[position];const correct=no===w.no;score+=Number(correct);missed+=Number(!correct);
   const options=[...$('choices').children];options.forEach(b=>{b.disabled=true;if(Number(b.dataset.answerNo)===w.no)b.classList.add('correct');});
   if(!correct)button.classList.add('wrong');
   const persistent=['formal','final','review'].includes(mode);
@@ -2132,7 +2165,7 @@ function answer(no,button){if(currentLesson==='1.2'&&mode==='pretest'){answerEnh
     advanceTimer=setTimeout(()=>{advanceTimer=null;if(position===queue.length)finish();else question();},correct?800:5000);
   }
 }
-function finish(){if(currentLesson==='1.2'&&previewState&&(mode==='practice'||mode==='pretest')){finishEnhancedPreview();return;}cancelAdvance();complete=true;show('nextButton',true);const passed=score/queue.length>=.9;if(['formal','final','review'].includes(mode)){saved.attempts.push({mode,correct:score,total:queue.length,date:new Date().toISOString()});if(mode==='formal'&&passed)saved.passed=true;save();renderMenu();}
+function finish(){if(currentLesson==='1.2'&&previewState&&(mode==='practice'||mode==='pretest'||mode==='formal')){finishEnhancedPreview();return;}cancelAdvance();complete=true;show('nextButton',true);const passed=score/queue.length>=.9;if(['formal','final','review'].includes(mode)){saved.attempts.push({mode,correct:score,total:queue.length,date:new Date().toISOString()});if(mode==='formal'&&passed)saved.passed=true;save();renderMenu();}
   $('choices').replaceChildren();$('prompt').textContent=passed?'完成！':'继续加油！';$('feedback').textContent=`${score}/${queue.length} correct (${Math.round(score/queue.length*100)}%). `+(passed?'Great work!':'Review the words and try again. You need 90% to pass.');$('feedback').className='feedback '+(passed?'good':'bad');$('nextButton').textContent='Back to Study';dashboard();
   if(mode==='formal')showFormalResult(passed);
 }
@@ -2454,8 +2487,8 @@ function makePreviewPool(word){
 function enhancedDashboard(){
   dashboard();
   $('dashNeededLabel').textContent='Words completed';$('dashNeeded').textContent=position+'/'+queue.length;
-  if(mode==='pretest')$('dashWords').textContent=(previewState.pinyinCorrect+previewState.meaningCorrect)+'/'+queue.length*2;
-  $('dashboardNote').textContent=mode==='pretest'?'Two steps per word: choose pinyin, then choose the meaning. This practice result does not change saved lesson progress.':'Build each word from its pinyin. Extra characters focus on characters that are easier to confuse. This practice does not change saved progress.';
+  if((mode==='pretest'||mode==='formal'))$('dashWords').textContent=(previewState.pinyinCorrect+previewState.meaningCorrect)+'/'+queue.length*2;
+  $('dashboardNote').textContent=(mode==='pretest'||mode==='formal')?(mode==='formal'?'Choose pinyin, then the Chinese meaning. Both steps must be correct for a word to count. Pass with 90% of words correct.':'Two steps per word: choose pinyin, then choose the meaning. This practice result does not change saved lesson progress.'):'Build each word from its pinyin. Extra characters focus on characters that are easier to confuse. This practice does not change saved progress.';
 }
 function renderEnhancedPreviewQuestion(){
   if(!previewState)previewState={step:0,pinyinCorrect:0,meaningCorrect:0,wordPinyinOK:false,startedAt:new Date().toISOString(),selected:[],pool:[]};
@@ -2472,7 +2505,7 @@ function renderEnhancedPreviewQuestion(){
   }else{
     const meaningStep=previewState.step===1;
     $('promptLabel').textContent=`Word ${position+1} of ${queue.length} · Step ${meaningStep?2:1} of 2: Choose the ${meaningStep?'Chinese meaning':'pinyin'}.`;
-    $('prompt').textContent=word.character;$('prompt').dataset.kind='chinese';$('previewEnglish').textContent=word.meaning;show('previewEnglish',true);show('choices',true);$('wordBuilder').hidden=true;
+    $('prompt').textContent=word.character;$('prompt').dataset.kind='chinese';$('previewEnglish').textContent=word.meaning;show('previewEnglish',mode!=='formal');show('choices',true);$('wordBuilder').hidden=true;
     $('choices').classList.toggle('definition-choices',meaningStep);
     (meaningStep?definitionChoices(word):matchingChoices(word,false)).forEach(item=>{
       const b=document.createElement('button');b.type='button';b.dataset.answerNo=String(item.no);b.className='choice '+(meaningStep?'definition-choice':'pinyin-choice');
@@ -2507,7 +2540,7 @@ function answerEnhancedPretest(no,button){
   if(answered||complete)return;answered=true;const word=queue[position],correct=no===word.no,meaningStep=previewState.step===1;
   for(const b of $('choices').children){b.disabled=true;if(Number(b.dataset.answerNo)===word.no)b.classList.add('correct');}
   if(!correct)button.classList.add('wrong');
-  if(meaningStep){previewState.meaningCorrect+=Number(correct);const both=previewState.wordPinyinOK&&correct;score+=Number(both);missed+=Number(!both);position++;}
+  if(meaningStep){previewState.meaningCorrect+=Number(correct);const both=previewState.wordPinyinOK&&correct;score+=Number(both);missed+=Number(!both);if(mode==='formal'&&!both&&!saved.missed.includes(word.no)){saved.missed.push(word.no);save();}position++;}
   else{previewState.wordPinyinOK=correct;previewState.pinyinCorrect+=Number(correct);}
   $('feedback').textContent=correct?'':meaningStep?'Correct meaning: '+formalDefinitions[word.no-1][0]+' — '+word.meaning+'. Continuing in 5 seconds.':'Correct pinyin: '+word.pinyin+'. Continuing to the meaning question in 5 seconds.';
   $('feedback').className='feedback '+(correct?'good':'bad');enhancedDashboard();
@@ -2515,14 +2548,16 @@ function answerEnhancedPretest(no,button){
 }
 function finishEnhancedPreview(){
   cancelAdvance();complete=true;answered=true;$('wordBuilder').hidden=true;show('previewEnglish',false);show('choices',true);$('choices').replaceChildren();
-  $('prompt').textContent=mode==='pretest'?'Pre-Test complete!':'Practice complete!';$('prompt').classList.add('long-prompt');
+  $('prompt').textContent=mode==='formal'?'Formal Test complete!':mode==='pretest'?'Pre-Test complete!':'Practice complete!';$('prompt').classList.add('long-prompt');
   $('feedback').textContent='';$('feedback').className='feedback';show('nextButton',true);$('nextButton').textContent='Back to Study';$('nextButton').disabled=false;
   enhancedDashboard();
-  const title=mode==='pretest'?'Pre-Test':'Word Building Practice';
+  const title=mode==='formal'?'Formal Test':mode==='pretest'?'Pre-Test':'Word Building Practice';
+  const passed=score/queue.length>=.9;
+  if(mode==='formal'){saved.attempts.push({mode,correct:score,total:queue.length,pinyinCorrect:previewState.pinyinCorrect,meaningCorrect:previewState.meaningCorrect,date:new Date().toISOString()});if(passed)saved.passed=true;save();renderMenu();}
   const lines=['Harvest — '+title,'Lesson: '+currentLesson,'Words completed: '+position+'/'+queue.length];
-  if(mode==='pretest')lines.push('Pinyin correct: '+previewState.pinyinCorrect+'/'+queue.length,'Meaning correct: '+previewState.meaningCorrect+'/'+queue.length,'Both steps correct: '+score+'/'+queue.length);
+  if((mode==='pretest'||mode==='formal'))lines.push('Pinyin correct: '+previewState.pinyinCorrect+'/'+queue.length,'Meaning correct: '+previewState.meaningCorrect+'/'+queue.length,'Both steps correct: '+score+'/'+queue.length);
   else lines.push('Words correct: '+score+'/'+queue.length);
-  lines.push('Accuracy: '+Math.round(score/queue.length*100)+'%','Started: '+new Date(previewState.startedAt).toLocaleString(),'Completed: '+new Date().toLocaleString(),'Practice only — does not change formal lesson progress.');
+  lines.push('Accuracy: '+Math.round(score/queue.length*100)+'%','Started: '+new Date(previewState.startedAt).toLocaleString(),'Completed: '+new Date().toLocaleString(),mode==='formal'?'Result: '+(passed?'Passed':'Not passed')+' (90% of words; both steps correct required)':'Practice only — does not change formal lesson progress.');
   const panel=document.createElement('section');panel.className='formal-result';
   renderResultImage(panel,lines.join('\n'),'Your '+title+' Result','Harvest_'+currentLesson+'_'+mode+'_Result');$('feedback').append(panel);
 }
