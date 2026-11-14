@@ -1395,6 +1395,56 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <style id="formal-definitions">
 .choice.definition-choice {display:flex;flex-direction:column;gap:9px;justify-content:center;align-items:stretch;text-align:left;min-width:0;max-width:100%;height:auto;padding:18px;border-radius:18px;white-space:normal;overflow-wrap:anywhere;line-height:1.55;}
 .definition-chinese {display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 2px;font-size:clamp(20px,4.4cqw,26px);font-weight:750;line-height:1.4;overflow-wrap:normal;word-break:normal;}
@@ -1541,6 +1591,13 @@ header {border-color:#ffda8f;background:linear-gradient(135deg,#fffef8,#fff0b4);
 .formal-result>button,.idiom-results>button{margin:0 10px 10px 0;min-height:44px;}
 .result-download{background:#fff9e8;border:1px solid #e8c375;color:#805016;font-weight:700;}
 </style>
+<style id="preview-enhancements-style">.preview-english{margin:-6px 0 20px;text-align:center;font-size:16px;line-height:1.6;color:var(--muted);font-weight:500;overflow-wrap:anywhere;}
+.preview-word-builder[hidden]{display:none!important;}
+.preview-builder-note{font-size:13px;line-height:1.6;color:var(--muted);}
+.preview-word-suffix{margin:0 0 12px;font-size:20px;color:#875b20;}
+#previewWordSlots{min-height:60px;}
+.preview-word-builder .idiom-tiles button,.preview-word-builder .idiom-slots button,.preview-word-builder .idiom-slot-empty{font-size:25px;min-height:48px;width:48px;}
+</style>
 </head>
 <body>
   <main>
@@ -1598,6 +1655,12 @@ header {border-color:#ffda8f;background:linear-gradient(135deg,#fffef8,#fff0b4);
 
 
 
+
+
+
+
+
+
 	      </div>
 	      <p id="formalTestHint" class="formal-test-hint">Formal Test: Complete all questions to generate a result you can copy and paste to share with your teacher.</p>
 <button id="startTestButton" class="blue-button" type="button">Go Test</button>
@@ -1611,6 +1674,30 @@ header {border-color:#ffda8f;background:linear-gradient(135deg,#fffef8,#fff0b4);
     </section>
 
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1684,7 +1771,16 @@ header {border-color:#ffda8f;background:linear-gradient(135deg,#fffef8,#fff0b4);
           <button id="nextStudyButton" type="button">Next</button>
         </div>
         <div class="character" id="prompt">你</div>
-        <div class="choices" id="choices"></div>
+        <p id="previewEnglish" class="preview-english" style="display:none"></p>
+<div id="wordBuilder" class="preview-word-builder" hidden>
+  <div id="previewWordSlots" class="idiom-slots" aria-label="Selected characters"></div>
+  <p id="previewWordSuffix" class="preview-word-suffix"></p>
+  <div id="previewWordTiles" class="idiom-tiles" aria-label="Candidate characters"></div>
+  <button id="previewWordClear" type="button">Clear</button>
+  <p class="preview-builder-note">Tap characters in order. Tap a selected character to undo it. Your word is checked automatically when all spaces are filled.</p>
+</div>
+
+<div class="choices" id="choices"></div>
         <p class="feedback" id="feedback" aria-live="polite"></p>
       </article>
 
@@ -1785,6 +1881,18 @@ header {border-color:#ffda8f;background:linear-gradient(135deg,#fffef8,#fff0b4);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 <dialog id="formalIntro" class="formal-intro" aria-labelledby="formalIntroTitle" aria-describedby="formalIntroDescription">
   <div class="formal-intro-content">
     <button id="formalIntroClose" class="formal-intro-close" type="button" aria-label="Close and keep studying">×</button>
@@ -1805,7 +1913,8 @@ header {border-color:#ffda8f;background:linear-gradient(135deg,#fffef8,#fff0b4);
 </dialog>
 
 <script>
-const lessonData={"1.1": {"title": "Chinese is Fun! 我爱学中文", "words": [{"character": "体会", "pinyin": "tǐ huì", "meaning": "to understand, experience", "no": 1}, {"character": "首先", "pinyin": "shǒu xiān", "meaning": "first of all", "no": 2}, {"character": "欣赏", "pinyin": "xīn shǎng", "meaning": "to appreciate", "no": 3}, {"character": "实用性", "pinyin": "shí yòng xìng", "meaning": "practicality", "no": 4}, {"character": "词汇", "pinyin": "cí huì", "meaning": "vocabulary", "no": 5}, {"character": "固然", "pinyin": "gù rán", "meaning": "certainly, of course", "no": 6}, {"character": "街道", "pinyin": "jiē dào", "meaning": "street", "no": 7}, {"character": "超市", "pinyin": "chāo shì", "meaning": "supermarket", "no": 8}, {"character": "篮球场", "pinyin": "lán qiú chǎng", "meaning": "basketball court", "no": 9}, {"character": "自然", "pinyin": "zì rán", "meaning": "natural", "no": 10}, {"character": "其次", "pinyin": "qí cì", "meaning": "secondly", "no": 11}, {"character": "经验", "pinyin": "jīng yàn", "meaning": "experience", "no": 12}, {"character": "证明", "pinyin": "zhèng míng", "meaning": "to prove", "no": 13}, {"character": "围墙", "pinyin": "wéi qiáng", "meaning": "surrounding wall", "no": 14}, {"character": "曾", "pinyin": "céng", "meaning": "ever", "no": 15}, {"character": "留学", "pinyin": "liú xué", "meaning": "to study abroad", "no": 16}, {"character": "姥姥", "pinyin": "lǎo lao", "meaning": "maternal grandmother", "no": 17}, {"character": "姥爷", "pinyin": "lǎo ye", "meaning": "maternal grandfather", "no": 18}, {"character": "聊天（儿）", "pinyin": "liáo tiān(r)", "meaning": "to chat", "no": 19}, {"character": "火锅店", "pinyin": "huǒ guō diàn", "meaning": "hot-pot restaurant", "no": 20}, {"character": "点菜", "pinyin": "diǎn cài", "meaning": "to order dishes in a restaurant", "no": 21}, {"character": "上街", "pinyin": "shàng jiē", "meaning": "to go shopping", "no": 22}, {"character": "购物", "pinyin": "gòu wù", "meaning": "to shop, to buy things", "no": 23}, {"character": "开玩笑", "pinyin": "kāi wán xiào", "meaning": "to joke", "no": 24}, {"character": "否认", "pinyin": "fǒu rèn", "meaning": "to deny", "no": 25}, {"character": "小贩", "pinyin": "xiǎo fàn", "meaning": "street vendor, hawker", "no": 26}, {"character": "服务员", "pinyin": "fú wù yuán", "meaning": "salesperson, waiter", "no": 27}, {"character": "队友", "pinyin": "duì yǒu", "meaning": "teammate", "no": 28}, {"character": "成语", "pinyin": "chéng yǔ", "meaning": "idiom, set expression", "no": 29}, {"character": "方言", "pinyin": "fāng yán", "meaning": "dialect", "no": 30}, {"character": "俚语", "pinyin": "lǐ yǔ", "meaning": "slang", "no": 31}, {"character": "好像", "pinyin": "hǎo xiàng", "meaning": "to seem like", "no": 32}, {"character": "不知不觉", "pinyin": "bù zhī bù jué", "meaning": "without realizing", "no": 33}, {"character": "挑战性", "pinyin": "tiǎo zhàn xìng", "meaning": "challenge", "no": 34}, {"character": "课本", "pinyin": "kè běn", "meaning": "textbook", "no": 35}, {"character": "进步", "pinyin": "jìn bù", "meaning": "to progress, improve", "no": 36}, {"character": "意味着", "pinyin": "yì wèi zhe", "meaning": "to mean", "no": 37}, {"character": "勇气", "pinyin": "yǒng qì", "meaning": "courage", "no": 38}, {"character": "师傅领进门，修行在个人", "pinyin": "shī fu lǐng jìn mén, xiū xíng zài gè rén", "meaning": "The master teaches the trade, but an apprentice is self-made.", "no": 39}, {"character": "球队", "pinyin": "qiú duì", "meaning": "team (in a ball game)", "no": 40}, {"character": "球星", "pinyin": "qiú xīng", "meaning": "star athlete (in a ball game)", "no": 41}, {"character": "坚定", "pinyin": "jiān dìng", "meaning": "to strengthen, solidify", "no": 42}, {"character": "害羞", "pinyin": "hài xiū", "meaning": "shy, timid", "no": 43}, {"character": "有害无益", "pinyin": "yǒu hài wú yì", "meaning": "harmful, not beneficial", "no": 44}], "definitions": [["亲自感受", "qīn zì gǎn shòu"], ["第一步", "dì yī bù"], ["觉得好而喜欢", "jué de hǎo ér xǐ huan"], ["有用的程度", "yǒu yòng de chéng dù"], ["语言里的词语", "yǔ yán lǐ de cí yǔ"], ["虽然如此", "suī rán rú cǐ"], ["城里通行的路", "chéng lǐ tōng xíng de lù"], ["自选商品的商店", "zì xuǎn shāng pǐn de shāng diàn"], ["打篮球的地方", "dǎ lán qiú de dì fang"], ["轻松不做作", "qīng sōng bú zuò zuo"], ["接着的第二点", "jiē zhe de dì èr diǎn"], ["做事积累的知识", "zuò shì jī lěi de zhī shi"], ["用事实说明", "yòng shì shí shuō míng"], ["围住院子的墙", "wéi zhù yuàn zi de qiáng"], ["以前有过", "yǐ qián yǒu guo"], ["到外国学习", "dào wài guó xué xí"], ["妈妈的妈妈", "mā ma de mā ma"], ["妈妈的爸爸", "mā ma de bà ba"], ["轻松地说话", "qīng sōng de shuō huà"], ["吃火锅的饭店", "chī huǒ guō de fàn diàn"], ["在饭店选菜", "zài fàn diàn xuǎn cài"], ["到街上逛逛", "dào jiē shang guàng guang"], ["买东西", "mǎi dōng xi"], ["说笑逗人开心", "shuō xiào dòu rén kāi xīn"], ["不承认", "bù chéng rèn"], ["摆摊卖东西的人", "bǎi tān mài dōng xi de rén"], ["招待客人的人", "zhāo dài kè rén de rén"], ["同一个队的人", "tóng yí ge duì de rén"], ["常用的固定短语", "cháng yòng de gù dìng duǎn yǔ"], ["一个地方的话", "yí ge dì fang de huà"], ["民间流行的俗话", "mín jiān liú xíng de sú huà"], ["看起来像", "kàn qǐ lái xiàng"], ["没有察觉", "méi yǒu chá jué"], ["需要努力的难度", "xū yào nǔ lì de nán dù"], ["上课用的书", "shàng kè yòng de shū"], ["比以前更好", "bǐ yǐ qián gèng hǎo"], ["表示某种意思", "biǎo shì mǒu zhǒng yì si"], ["不怕困难的精神", "bú pà kùn nan de jīng shén"], ["老师引路，学靠自己", "lǎo shī yǐn lù xué kào zì jǐ"], ["一起打球的队伍", "yì qǐ dǎ qiú de duì wu"], ["有名的球类选手", "yǒu míng de qiú lèi xuǎn shǒu"], ["使信心更稳固", "shǐ xìn xīn gèng wěn gù"], ["觉得不好意思", "jué de bù hǎo yì si"], ["只有坏处没有好处", "zhǐ yǒu huài chu méi yǒu hǎo chu"]]}, "1.1副": {"title": "1.1副 · 补充词汇", "words": [{"character": "淡", "pinyin": "dàn", "meaning": "bland, tasteless", "no": 1}, {"character": "声调", "pinyin": "shēng diào", "meaning": "tone", "no": 2}, {"character": "儿化音", "pinyin": "ér huà yīn", "meaning": "r-sound", "no": 3}, {"character": "老板", "pinyin": "lǎo bǎn", "meaning": "boss", "no": 4}, {"character": "意识", "pinyin": "yì shí", "meaning": "to be aware, conscious of; to realize", "no": 5}, {"character": "钱币", "pinyin": "qián bì", "meaning": "coin", "no": 6}, {"character": "拦路虎", "pinyin": "lán lù hǔ", "meaning": "hindrance, obstacle", "no": 7}, {"character": "津津有味", "pinyin": "jīn jīn yǒu wèi", "meaning": "with great interest; with keen pleasure", "no": 8}, {"character": "脱口而出", "pinyin": "tuō kǒu ér chū", "meaning": "blurt out", "no": 9}, {"character": "胸有成竹", "pinyin": "xiōng yǒu chéng zhú", "meaning": "have a well-thought-out plan in one's mind", "no": 10}, {"character": "捉迷藏", "pinyin": "zhuō mí cáng", "meaning": "hide and seek; blindman's buff", "no": 11}, {"character": "兴高采烈", "pinyin": "xìng gāo cǎi liè", "meaning": "in high spirits; excited", "no": 12}, {"character": "无地自容", "pinyin": "wú dì zì róng", "meaning": "feel extremely ashamed", "no": 13}, {"character": "辅导", "pinyin": "fǔ dǎo", "meaning": "to tutor; tutoring", "no": 14}, {"character": "侃大山", "pinyin": "kǎn dà shān", "meaning": "shoot the breeze; chat", "no": 15}, {"character": "天南海北", "pinyin": "tiān nán hǎi běi", "meaning": "a wide range of places or topics", "no": 16}, {"character": "市民", "pinyin": "shì mín", "meaning": "urban resident", "no": 17}, {"character": "见识", "pinyin": "jiàn shi", "meaning": "knowledge about various things; experience", "no": 18}], "definitions": [["味道不浓", "wèi dào bù nóng"], ["说话声音的高低变化", "shuō huà shēng yīn de gāo dī biàn huà"], ["带儿尾的发音", "dài ér wěi de fā yīn"], ["经营商店或公司的人", "jīng yíng shāng diàn huò gōng sī de rén"], ["察觉到", "chá jué dào"], ["金属做的钱", "jīn shǔ zuò de qián"], ["挡住前进的困难", "dǎng zhù qián jìn de kùn nan"], ["很感兴趣的样子", "hěn gǎn xìng qù de yàng zi"], ["没多想就说出来", "méi duō xiǎng jiù shuō chū lái"], ["已有计划很有把握", "yǐ yǒu jì huà hěn yǒu bǎ wò"], ["一人找别人藏的游戏", "yì rén zhǎo bié rén cáng de yóu xì"], ["非常高兴", "fēi cháng gāo xìng"], ["羞得想躲起来", "xiū de xiǎng duǒ qǐ lái"], ["帮助学习", "bāng zhù xué xí"], ["随意聊天", "suí yì liáo tiān"], ["各地或各种话题", "gè dì huò gè zhǒng huà tí"], ["住在城市的人", "zhù zài chéng shì de rén"], ["经历中得到的知识", "jīng lì zhōng dé dào de zhī shi"]]}};
+const lessonData={"1.1": {"title": "Chinese is Fun! 我爱学中文", "words": [{"character": "体会", "pinyin": "tǐ huì", "meaning": "to understand, experience", "no": 1}, {"character": "首先", "pinyin": "shǒu xiān", "meaning": "first of all", "no": 2}, {"character": "欣赏", "pinyin": "xīn shǎng", "meaning": "to appreciate", "no": 3}, {"character": "实用性", "pinyin": "shí yòng xìng", "meaning": "practicality", "no": 4}, {"character": "词汇", "pinyin": "cí huì", "meaning": "vocabulary", "no": 5}, {"character": "固然", "pinyin": "gù rán", "meaning": "certainly, of course", "no": 6}, {"character": "街道", "pinyin": "jiē dào", "meaning": "street", "no": 7}, {"character": "超市", "pinyin": "chāo shì", "meaning": "supermarket", "no": 8}, {"character": "篮球场", "pinyin": "lán qiú chǎng", "meaning": "basketball court", "no": 9}, {"character": "自然", "pinyin": "zì rán", "meaning": "natural", "no": 10}, {"character": "其次", "pinyin": "qí cì", "meaning": "secondly", "no": 11}, {"character": "经验", "pinyin": "jīng yàn", "meaning": "experience", "no": 12}, {"character": "证明", "pinyin": "zhèng míng", "meaning": "to prove", "no": 13}, {"character": "围墙", "pinyin": "wéi qiáng", "meaning": "surrounding wall", "no": 14}, {"character": "曾", "pinyin": "céng", "meaning": "ever", "no": 15}, {"character": "留学", "pinyin": "liú xué", "meaning": "to study abroad", "no": 16}, {"character": "姥姥", "pinyin": "lǎo lao", "meaning": "maternal grandmother", "no": 17}, {"character": "姥爷", "pinyin": "lǎo ye", "meaning": "maternal grandfather", "no": 18}, {"character": "聊天（儿）", "pinyin": "liáo tiān(r)", "meaning": "to chat", "no": 19}, {"character": "火锅店", "pinyin": "huǒ guō diàn", "meaning": "hot-pot restaurant", "no": 20}, {"character": "点菜", "pinyin": "diǎn cài", "meaning": "to order dishes in a restaurant", "no": 21}, {"character": "上街", "pinyin": "shàng jiē", "meaning": "to go shopping", "no": 22}, {"character": "购物", "pinyin": "gòu wù", "meaning": "to shop, to buy things", "no": 23}, {"character": "开玩笑", "pinyin": "kāi wán xiào", "meaning": "to joke", "no": 24}, {"character": "否认", "pinyin": "fǒu rèn", "meaning": "to deny", "no": 25}, {"character": "小贩", "pinyin": "xiǎo fàn", "meaning": "street vendor, hawker", "no": 26}, {"character": "服务员", "pinyin": "fú wù yuán", "meaning": "salesperson, waiter", "no": 27}, {"character": "队友", "pinyin": "duì yǒu", "meaning": "teammate", "no": 28}, {"character": "成语", "pinyin": "chéng yǔ", "meaning": "idiom, set expression", "no": 29}, {"character": "方言", "pinyin": "fāng yán", "meaning": "dialect", "no": 30}, {"character": "俚语", "pinyin": "lǐ yǔ", "meaning": "slang", "no": 31}, {"character": "好像", "pinyin": "hǎo xiàng", "meaning": "to seem like", "no": 32}, {"character": "不知不觉", "pinyin": "bù zhī bù jué", "meaning": "without realizing", "no": 33}, {"character": "挑战性", "pinyin": "tiǎo zhàn xìng", "meaning": "challenge", "no": 34}, {"character": "课本", "pinyin": "kè běn", "meaning": "textbook", "no": 35}, {"character": "进步", "pinyin": "jìn bù", "meaning": "to progress, improve", "no": 36}, {"character": "意味着", "pinyin": "yì wèi zhe", "meaning": "to mean", "no": 37}, {"character": "勇气", "pinyin": "yǒng qì", "meaning": "courage", "no": 38}, {"character": "师傅领进门，修行在个人", "pinyin": "shī fu lǐng jìn mén, xiū xíng zài gè rén", "meaning": "The master teaches the trade, but an apprentice is self-made.", "no": 39}, {"character": "球队", "pinyin": "qiú duì", "meaning": "team (in a ball game)", "no": 40}, {"character": "球星", "pinyin": "qiú xīng", "meaning": "star athlete (in a ball game)", "no": 41}, {"character": "坚定", "pinyin": "jiān dìng", "meaning": "to strengthen, solidify", "no": 42}, {"character": "害羞", "pinyin": "hài xiū", "meaning": "shy, timid", "no": 43}, {"character": "有害无益", "pinyin": "yǒu hài wú yì", "meaning": "harmful, not beneficial", "no": 44}], "definitions": [["亲自感受", "qīn zì gǎn shòu"], ["第一步", "dì yī bù"], ["觉得好而喜欢", "jué de hǎo ér xǐ huan"], ["有用的程度", "yǒu yòng de chéng dù"], ["语言里的词语", "yǔ yán lǐ de cí yǔ"], ["虽然如此", "suī rán rú cǐ"], ["城里通行的路", "chéng lǐ tōng xíng de lù"], ["自选商品的商店", "zì xuǎn shāng pǐn de shāng diàn"], ["打篮球的地方", "dǎ lán qiú de dì fang"], ["轻松不做作", "qīng sōng bú zuò zuo"], ["接着的第二点", "jiē zhe de dì èr diǎn"], ["做事积累的知识", "zuò shì jī lěi de zhī shi"], ["用事实说明", "yòng shì shí shuō míng"], ["围住院子的墙", "wéi zhù yuàn zi de qiáng"], ["以前有过", "yǐ qián yǒu guo"], ["到外国学习", "dào wài guó xué xí"], ["妈妈的妈妈", "mā ma de mā ma"], ["妈妈的爸爸", "mā ma de bà ba"], ["轻松地说话", "qīng sōng de shuō huà"], ["吃火锅的饭店", "chī huǒ guō de fàn diàn"], ["在饭店选菜", "zài fàn diàn xuǎn cài"], ["到街上逛逛", "dào jiē shang guàng guang"], ["买东西", "mǎi dōng xi"], ["说笑逗人开心", "shuō xiào dòu rén kāi xīn"], ["不承认", "bù chéng rèn"], ["摆摊卖东西的人", "bǎi tān mài dōng xi de rén"], ["招待客人的人", "zhāo dài kè rén de rén"], ["同一个队的人", "tóng yí ge duì de rén"], ["常用的固定短语", "cháng yòng de gù dìng duǎn yǔ"], ["一个地方的话", "yí ge dì fang de huà"], ["民间流行的俗话", "mín jiān liú xíng de sú huà"], ["看起来像", "kàn qǐ lái xiàng"], ["没有察觉", "méi yǒu chá jué"], ["需要努力的难度", "xū yào nǔ lì de nán dù"], ["上课用的书", "shàng kè yòng de shū"], ["比以前更好", "bǐ yǐ qián gèng hǎo"], ["表示某种意思", "biǎo shì mǒu zhǒng yì si"], ["不怕困难的精神", "bú pà kùn nan de jīng shén"], ["老师引路，学靠自己", "lǎo shī yǐn lù xué kào zì jǐ"], ["一起打球的队伍", "yì qǐ dǎ qiú de duì wu"], ["有名的球类选手", "yǒu míng de qiú lèi xuǎn shǒu"], ["使信心更稳固", "shǐ xìn xīn gèng wěn gù"], ["觉得不好意思", "jué de bù hǎo yì si"], ["只有坏处没有好处", "zhǐ yǒu huài chu méi yǒu hǎo chu"]]}, "1.1副": {"title": "1.1副 · 补充词汇", "words": [{"character": "淡", "pinyin": "dàn", "meaning": "bland, tasteless", "no": 1}, {"character": "声调", "pinyin": "shēng diào", "meaning": "tone", "no": 2}, {"character": "儿化音", "pinyin": "ér huà yīn", "meaning": "r-sound", "no": 3}, {"character": "老板", "pinyin": "lǎo bǎn", "meaning": "boss", "no": 4}, {"character": "意识", "pinyin": "yì shí", "meaning": "to be aware, conscious of; to realize", "no": 5}, {"character": "钱币", "pinyin": "qián bì", "meaning": "coin", "no": 6}, {"character": "拦路虎", "pinyin": "lán lù hǔ", "meaning": "hindrance, obstacle", "no": 7}, {"character": "津津有味", "pinyin": "jīn jīn yǒu wèi", "meaning": "with great interest; with keen pleasure", "no": 8}, {"character": "脱口而出", "pinyin": "tuō kǒu ér chū", "meaning": "blurt out", "no": 9}, {"character": "胸有成竹", "pinyin": "xiōng yǒu chéng zhú", "meaning": "have a well-thought-out plan in one's mind", "no": 10}, {"character": "捉迷藏", "pinyin": "zhuō mí cáng", "meaning": "hide and seek; blindman's buff", "no": 11}, {"character": "兴高采烈", "pinyin": "xìng gāo cǎi liè", "meaning": "in high spirits; excited", "no": 12}, {"character": "无地自容", "pinyin": "wú dì zì róng", "meaning": "feel extremely ashamed", "no": 13}, {"character": "辅导", "pinyin": "fǔ dǎo", "meaning": "to tutor; tutoring", "no": 14}, {"character": "侃大山", "pinyin": "kǎn dà shān", "meaning": "shoot the breeze; chat", "no": 15}, {"character": "天南海北", "pinyin": "tiān nán hǎi běi", "meaning": "a wide range of places or topics", "no": 16}, {"character": "市民", "pinyin": "shì mín", "meaning": "urban resident", "no": 17}, {"character": "见识", "pinyin": "jiàn shi", "meaning": "knowledge about various things; experience", "no": 18}], "definitions": [["味道不浓", "wèi dào bù nóng"], ["说话声音的高低变化", "shuō huà shēng yīn de gāo dī biàn huà"], ["带儿尾的发音", "dài ér wěi de fā yīn"], ["经营商店或公司的人", "jīng yíng shāng diàn huò gōng sī de rén"], ["察觉到", "chá jué dào"], ["金属做的钱", "jīn shǔ zuò de qián"], ["挡住前进的困难", "dǎng zhù qián jìn de kùn nan"], ["很感兴趣的样子", "hěn gǎn xìng qù de yàng zi"], ["没多想就说出来", "méi duō xiǎng jiù shuō chū lái"], ["已有计划很有把握", "yǐ yǒu jì huà hěn yǒu bǎ wò"], ["一人找别人藏的游戏", "yì rén zhǎo bié rén cáng de yóu xì"], ["非常高兴", "fēi cháng gāo xìng"], ["羞得想躲起来", "xiū de xiǎng duǒ qǐ lái"], ["帮助学习", "bāng zhù xué xí"], ["随意聊天", "suí yì liáo tiān"], ["各地或各种话题", "gè dì huò gè zhǒng huà tí"], ["住在城市的人", "zhù zài chéng shì de rén"], ["经历中得到的知识", "jīng lì zhōng dé dào de zhī shi"]]}, "1.2": {"title": "My Father, Laoshe 儿子眼中的父亲", "words": [{"character": "文学家", "pinyin": "wén xué jiā", "meaning": "great writer", "no": 1}, {"character": "文学馆", "pinyin": "wén xué guǎn", "meaning": "hall of writers", "no": 2}, {"character": "馆长", "pinyin": "guǎn zhǎng", "meaning": "curator", "no": 3}, {"character": "主持人", "pinyin": "zhǔ chí rén", "meaning": "presenter", "no": 4}, {"character": "来历", "pinyin": "lái lì", "meaning": "origin", "no": 5}, {"character": "繁体", "pinyin": "fán tǐ", "meaning": "traditional Chinese character", "no": 6}, {"character": "正巧", "pinyin": "zhèng qiǎo", "meaning": "by chance", "no": 7}, {"character": "甲、乙、丙、丁", "pinyin": "jiǎ yǐ bǐng dīng", "meaning": "first, second, third, fourth", "no": 8}, {"character": "唯一", "pinyin": "wéi yī", "meaning": "only, sole", "no": 9}, {"character": "望子成龙", "pinyin": "wàng zǐ chéng lóng", "meaning": "to have high expectations for your children", "no": 10}, {"character": "期望", "pinyin": "qī wàng", "meaning": "hope, expectation", "no": 11}, {"character": "儿童观", "pinyin": "ér tóng guān", "meaning": "philosophy toward childraising", "no": 12}, {"character": "管", "pinyin": "guǎn", "meaning": "to discipline", "no": 13}, {"character": "规范", "pinyin": "guī fàn", "meaning": "standard, the norm", "no": 14}, {"character": "约束", "pinyin": "yuē shù", "meaning": "to restrict, restrain", "no": 15}, {"character": "天性", "pinyin": "tiān xìng", "meaning": "natural disposition", "no": 16}, {"character": "纳闷（儿）", "pinyin": "nà mènr", "meaning": "to feel puzzled", "no": 17}, {"character": "安慰", "pinyin": "ān wèi", "meaning": "to comfort, console", "no": 18}, {"character": "向来", "pinyin": "xiàng lái", "meaning": "always", "no": 19}, {"character": "主张", "pinyin": "zhǔ zhāng", "meaning": "to advocate, recommend", "no": 20}, {"character": "天真", "pinyin": "tiān zhēn", "meaning": "innocent", "no": 21}, {"character": "只身", "pinyin": "zhī shēn", "meaning": "solitarily, alone", "no": 22}, {"character": "迁", "pinyin": "qiān", "meaning": "to move", "no": 23}, {"character": "半大小子", "pinyin": "bàn dà xiǎo zi", "meaning": "teenager", "no": 24}, {"character": "久别重逢", "pinyin": "jiǔ bié chóng féng", "meaning": "to reunite after a long time", "no": 25}, {"character": "打招呼", "pinyin": "dǎ zhāo hu", "meaning": "to greet somebody", "no": 26}, {"character": "拄", "pinyin": "zhǔ", "meaning": "to lean on a stick", "no": 27}, {"character": "手杖", "pinyin": "shǒu zhàng", "meaning": "walking stick", "no": 28}, {"character": "站台", "pinyin": "zhàn tái", "meaning": "platform", "no": 29}, {"character": "伸", "pinyin": "shēn", "meaning": "to stretch, extend", "no": 30}, {"character": "平辈", "pinyin": "píng bèi", "meaning": "person of the same generation", "no": 31}, {"character": "郑重其事", "pinyin": "zhèng zhòng qí shì", "meaning": "to take something seriously", "no": 32}, {"character": "传递", "pinyin": "chuán dì", "meaning": "to pass, hand something down", "no": 33}, {"character": "专心", "pinyin": "zhuān xīn", "meaning": "to concentrate hard", "no": 34}, {"character": "撇", "pinyin": "piē", "meaning": "to cast aside, neglect", "no": 35}, {"character": "衣食住行", "pinyin": "yī shí zhù xíng", "meaning": "basic necessities", "no": 36}, {"character": "温情", "pinyin": "wēn qíng", "meaning": "tender feeling, warmth", "no": 37}, {"character": "和蔼", "pinyin": "hé ǎi", "meaning": "amiable", "no": 38}, {"character": "方式", "pinyin": "fāng shì", "meaning": "way", "no": 39}, {"character": "出差", "pinyin": "chū chāi", "meaning": "to go on a business trip", "no": 40}, {"character": "皮带", "pinyin": "pí dài", "meaning": "leather belt", "no": 41}, {"character": "琢磨", "pinyin": "zuó mo", "meaning": "to ponder, think over", "no": 42}, {"character": "细致", "pinyin": "xì zhì", "meaning": "attentive to detail", "no": 43}, {"character": "含蓄", "pinyin": "hán xù", "meaning": "implicit", "no": 44}, {"character": "关爱", "pinyin": "guān ài", "meaning": "care and concern", "no": 45}], "definitions": [["擅长写文学作品的人", "shàn cháng xiě wén xué zuò pǐn de rén"], ["展示作家作品的地方", "zhǎn shì zuò jiā zuò pǐn de dì fang"], ["负责管理馆的人", "fù zé guǎn lǐ guǎn de rén"], ["主持活动或节目的人", "zhǔ chí huó dòng huò jié mù de rén"], ["人或事物的来源", "rén huò shì wù de lái yuán"], ["笔画较多的传统字形", "bǐ huà jiào duō de chuán tǒng zì xíng"], ["恰好碰上", "qià hǎo pèng shang"], ["表示顺序的四个字", "biǎo shì shùn xù de sì ge zì"], ["只有一个", "zhǐ yǒu yí ge"], ["希望孩子将来有出息", "xī wàng hái zi jiāng lái yǒu chū xi"], ["对未来的希望", "duì wèi lái de xī wàng"], ["对养育孩子的看法", "duì yǎng yù hái zi de kàn fǎ"], ["管教或管理", "guǎn jiào huò guǎn lǐ"], ["大家遵守的标准", "dà jiā zūn shǒu de biāo zhǔn"], ["限制行为不让乱做", "xiàn zhì xíng wéi bú ràng luàn zuò"], ["天生的性格", "tiān shēng de xìng gé"], ["心里不明白", "xīn lǐ bù míng bai"], ["让难过的人心里好受", "ràng nán guò de rén xīn lǐ hǎo shòu"], ["一直都是这样", "yì zhí dōu shì zhè yàng"], ["提出自己的看法", "tí chū zì jǐ de kàn fǎ"], ["单纯没有心机", "dān chún méi yǒu xīn jī"], ["独自一个人", "dú zì yí ge rén"], ["搬到别的地方", "bān dào bié de dì fang"], ["还没成年的男孩子", "hái méi chéng nián de nán hái zi"], ["分开很久后再次见面", "fēn kāi hěn jiǔ hòu zài cì jiàn miàn"], ["见面时问好", "jiàn miàn shí wèn hǎo"], ["用棍子撑着身体", "yòng gùn zi chēng zhe shēn tǐ"], ["帮助走路的棍子", "bāng zhù zǒu lù de gùn zi"], ["车站里上下车的地方", "chē zhàn lǐ shàng xià chē de dì fang"], ["把身体某处展开", "bǎ shēn tǐ mǒu chù zhǎn kāi"], ["同一辈分的人", "tóng yí bèi fèn de rén"], ["态度严肃认真", "tài dù yán sù rèn zhēn"], ["从一人传给另一人", "cóng yì rén chuán gěi lìng yì rén"], ["集中精神做一件事", "jí zhōng jīng shén zuò yí jiàn shì"], ["扔在一边不管", "rēng zài yì biān bù guǎn"], ["穿衣吃饭住宿出行", "chuān yī chī fàn zhù sù chū xíng"], ["温暖的情意", "wēn nuǎn de qíng yì"], ["态度温和亲切", "tài dù wēn hé qīn qiè"], ["做事情的方法", "zuò shì qing de fāng fǎ"], ["因工作去外地", "yīn gōng zuò qù wài dì"], ["用皮做的腰带", "yòng pí zuò de yāo dài"], ["反复想一件事", "fǎn fù xiǎng yí jiàn shì"], ["认真注意小地方", "rèn zhēn zhù yì xiǎo dì fang"], ["意思不直接说出来", "yì si bù zhí jiē shuō chū lái"], ["关心爱护别人", "guān xīn ài hù bié rén"]]}};
+const wordBuildingConfig={"文学家": {"focus": "文", "distractors": ["问", "闻", "纹"]}, "文学馆": {"focus": "馆", "distractors": ["管", "官", "饭"]}, "馆长": {"focus": "馆、长", "distractors": ["管", "官", "常", "张"]}, "主持人": {"focus": "持", "distractors": ["待", "特", "侍"]}, "来历": {"focus": "历", "distractors": ["厉", "力", "立"]}, "繁体": {"focus": "繁", "distractors": ["紧", "紫", "累"]}, "正巧": {"focus": "巧", "distractors": ["考", "号", "亏"]}, "甲、乙、丙、丁": {"focus": "甲、丙", "distractors": ["由", "申", "两", "内"]}, "唯一": {"focus": "唯", "distractors": ["谁", "难", "维"]}, "望子成龙": {"focus": "望、龙", "distractors": ["忘", "旺", "尤", "笼"]}, "期望": {"focus": "期、望", "distractors": ["其", "棋", "忘", "旺"]}, "儿童观": {"focus": "观", "distractors": ["现", "欢", "见"]}, "管": {"focus": "管", "distractors": ["馆", "官", "简"]}, "规范": {"focus": "规、范", "distractors": ["现", "观", "犯", "泛"]}, "约束": {"focus": "束", "distractors": ["来", "东", "速"]}, "天性": {"focus": "性", "distractors": ["姓", "生", "星"]}, "纳闷（儿）": {"focus": "纳、闷", "distractors": ["那", "内", "问", "闲"]}, "安慰": {"focus": "慰", "distractors": ["蔚", "尉", "愿"]}, "向来": {"focus": "向", "distractors": ["问", "同", "响"]}, "主张": {"focus": "张", "distractors": ["长", "帐", "涨"]}, "天真": {"focus": "真", "distractors": ["直", "具", "值"]}, "只身": {"focus": "身", "distractors": ["申", "声", "生"]}, "迁": {"focus": "迁", "distractors": ["千", "近", "过"]}, "半大小子": {"focus": "半", "distractors": ["伴", "羊", "平"]}, "久别重逢": {"focus": "逢、重", "distractors": ["缝", "蓬", "童", "种"]}, "打招呼": {"focus": "招、呼", "distractors": ["召", "照", "乎", "护"]}, "拄": {"focus": "拄", "distractors": ["住", "柱", "注"]}, "手杖": {"focus": "杖", "distractors": ["丈", "仗", "枝"]}, "站台": {"focus": "站", "distractors": ["战", "沾", "点"]}, "伸": {"focus": "伸", "distractors": ["申", "神", "绅"]}, "平辈": {"focus": "辈", "distractors": ["悲", "背", "非"]}, "郑重其事": {"focus": "郑、其", "distractors": ["邻", "都", "棋", "期"]}, "传递": {"focus": "递", "distractors": ["弟", "第", "梯"]}, "专心": {"focus": "专", "distractors": ["转", "传", "这"]}, "撇": {"focus": "撇", "distractors": ["撤", "撒", "敝"]}, "衣食住行": {"focus": "食、住", "distractors": ["良", "实", "往", "注"]}, "温情": {"focus": "情", "distractors": ["晴", "清", "请"]}, "和蔼": {"focus": "蔼", "distractors": ["葛", "渴", "喝"]}, "方式": {"focus": "式", "distractors": ["试", "武", "代"]}, "出差": {"focus": "差", "distractors": ["着", "羊", "羞"]}, "皮带": {"focus": "带", "distractors": ["戴", "帝", "常"]}, "琢磨": {"focus": "琢、磨", "distractors": ["啄", "逐", "摩", "魔"]}, "细致": {"focus": "致", "distractors": ["到", "至", "值"]}, "含蓄": {"focus": "含、蓄", "distractors": ["合", "念", "畜", "苗"]}, "关爱": {"focus": "爱", "distractors": ["受", "友", "授"]}};
 let vocabularyData=lessonData["1.1"].words;
 let formalDefinitions=lessonData["1.1"].definitions;
 function renderResultImage(container,report,title,filename){
@@ -1861,6 +1970,7 @@ let mode='study',studyItems=vocabularyData,studyIndex=0,queue=[],position=0,scor
 let advanceTimer=null;
 let idiomTimer=null,idiomState=null,connectorTimer=null,connectorState=null;
 let formalStartedAt=null;
+let previewState=null;
 const autoAdvanceModes=new Set(['practice','pretest','formal']);
 function cancelAdvance(){if(advanceTimer!==null){clearTimeout(advanceTimer);advanceTimer=null;}}
 const shuffled=items=>{const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
@@ -1922,6 +2032,7 @@ function dashboard(){
 }
 function setMode(next){
   cancelAdvance();
+  previewState=null;show('previewEnglish',false);$('wordBuilder').hidden=true;show('choices',true);
   if(idiomTimer!==null){clearTimeout(idiomTimer);idiomTimer=null;}
   if(connectorTimer!==null){clearTimeout(connectorTimer);connectorTimer=null;}
   const homeworkMode=next==='idioms'||next==='connectors';
@@ -1979,6 +2090,7 @@ function definitionChoices(word){
   return shuffled([word,...candidates.slice(0,3)]);
 }
 function question(){
+  if(currentLesson==='1.2'&&(mode==='practice'||mode==='pretest')){renderEnhancedPreviewQuestion();return;}
   answered=false;const w=queue[position];$('promptLabel').className='prompt-label active';const reverse=mode==='practice';
   $('promptLabel').textContent=mode==='formal'?'Choose the correct Chinese meaning of this word.':reverse?'Choose the Chinese word for this pinyin.':mode==='pretest'?'Choose the pinyin. Pre-Test does not change saved progress.':'Choose the correct pinyin.';
   $('prompt').textContent=reverse?w.pinyin:w.character;
@@ -2009,7 +2121,7 @@ function question(){
   });
   $('dashboardNote').textContent=mode==='practice'?'Practice pinyin to Chinese. Practice and Pre-Test do not change saved progress.':'The word list is hidden during the test. Pass with at least 90% correct.';dashboard();
 }
-function answer(no,button){if(answered||complete)return;answered=true;const w=queue[position];const correct=no===w.no;score+=Number(correct);missed+=Number(!correct);
+function answer(no,button){if(currentLesson==='1.2'&&mode==='pretest'){answerEnhancedPretest(no,button);return;}if(answered||complete)return;answered=true;const w=queue[position];const correct=no===w.no;score+=Number(correct);missed+=Number(!correct);
   const options=[...$('choices').children];options.forEach(b=>{b.disabled=true;if(Number(b.dataset.answerNo)===w.no)b.classList.add('correct');});
   if(!correct)button.classList.add('wrong');
   const persistent=['formal','final','review'].includes(mode);
@@ -2020,7 +2132,7 @@ function answer(no,button){if(answered||complete)return;answered=true;const w=qu
     advanceTimer=setTimeout(()=>{advanceTimer=null;if(position===queue.length)finish();else question();},correct?800:5000);
   }
 }
-function finish(){cancelAdvance();complete=true;show('nextButton',true);const passed=score/queue.length>=.9;if(['formal','final','review'].includes(mode)){saved.attempts.push({mode,correct:score,total:queue.length,date:new Date().toISOString()});if(mode==='formal'&&passed)saved.passed=true;save();renderMenu();}
+function finish(){if(currentLesson==='1.2'&&previewState&&(mode==='practice'||mode==='pretest')){finishEnhancedPreview();return;}cancelAdvance();complete=true;show('nextButton',true);const passed=score/queue.length>=.9;if(['formal','final','review'].includes(mode)){saved.attempts.push({mode,correct:score,total:queue.length,date:new Date().toISOString()});if(mode==='formal'&&passed)saved.passed=true;save();renderMenu();}
   $('choices').replaceChildren();$('prompt').textContent=passed?'完成！':'继续加油！';$('feedback').textContent=`${score}/${queue.length} correct (${Math.round(score/queue.length*100)}%). `+(passed?'Great work!':'Review the words and try again. You need 90% to pass.');$('feedback').className='feedback '+(passed?'good':'bad');$('nextButton').textContent='Back to Study';dashboard();
   if(mode==='formal')showFormalResult(passed);
 }
@@ -2193,7 +2305,8 @@ const connectorGroups=[
  {id:'sequence',phrases:[['首先','shǒu xiān'],['其次','qí cì']],explanation:'Use “first … next …” to put actions in order. “Finally” is already written in the sentence.'},
  {id:'preference',phrases:[['我喜欢','wǒ xǐ huan'],['是因为','shì yīn wèi']],explanation:'This sentence explains a personal preference: “I like … because …”.'},
  {id:'contrast',phrases:[['固然','gù rán'],['但是','dàn shì']],explanation:'The two ideas contrast. 固然 acknowledges the first point; 但是 introduces “but.”'},
- {id:'reason',phrases:[['既然','jì rán'],['就','jiù']],explanation:'The first part gives a known reason, and the second gives a conclusion or suggestion: “since … then …”.'}
+ {id:'reason',phrases:[['既然','jì rán'],['就','jiù']],explanation:'The first part gives a known reason, and the second gives a conclusion or suggestion: “since … then …”.'},
+ {id:'alternative',phrases:[['与其','yǔ qí'],['不如','bù rú']],explanation:'This compares two actions and recommends the second one: “rather than … it would be better to …”.'}
 ];
 const connectorQuestions=[
  {answer:'sequence',sentence:'做作业有三个步骤：____读题，____思考，最后写答案。'},
@@ -2207,7 +2320,10 @@ const connectorQuestions=[
  {answer:'contrast',sentence:'去那里____要走很远，____沿路的风景很美，值得一去。'},
  {answer:'reason',sentence:'____你已经答应参加，____请按时到。'},
  {answer:'reason',sentence:'____作业已经做完了，____去读一会儿故事书吧。'},
- {answer:'reason',sentence:'____你想提高中文水平，____每天坚持练习吧。'}
+ {answer:'reason',sentence:'____你想提高中文水平，____每天坚持练习吧。'},
+ {answer:'alternative',sentence:'雨下得这么大，____出去爬山，____在家睡觉。'},
+ {answer:'alternative',sentence:'今天天气这么好，____在家看电影，____出去骑车呢！'},
+ {answer:'alternative',sentence:'____一直担心考试，____认真复习。'}
 ];
 const connectorReadings=[
  'zuò zuò yè yǒu sān ge bù zhòu dú tí sī kǎo zuì hòu xiě dá àn',
@@ -2221,7 +2337,10 @@ const connectorReadings=[
  'qù nà lǐ yào zǒu hěn yuǎn yán lù de fēng jǐng hěn měi zhí de yí qù',
  'nǐ yǐ jīng dā ying cān jiā qǐng àn shí dào',
  'zuò yè yǐ jīng zuò wán le qù dú yí huì ér gù shi shū ba',
- 'nǐ xiǎng tí gāo zhōng wén shuǐ píng měi tiān jiān chí liàn xí ba'
+ 'nǐ xiǎng tí gāo zhōng wén shuǐ píng měi tiān jiān chí liàn xí ba',
+ 'yǔ xià de zhè me dà chū qù pá shān zài jiā shuì jiào',
+ 'jīn tiān tiān qì zhè me hǎo zài jiā kàn diàn yǐng chū qù qí chē ne',
+ 'yì zhí dān xīn kǎo shì rèn zhēn fù xí'
 ];
 connectorQuestions.forEach((question,index)=>{question.reading=connectorReadings[index];});
 const viewpointGroups=[
@@ -2280,7 +2399,9 @@ function renderConnectorQuestion(){
   $('connectorInstruction').textContent='Read the sentence and choose the best group of connecting words to fill the blanks in order. Hover over or tap a character in the sentence to see its pinyin. '+(connectorState.index<5?'Answer choices include pinyin for questions 1–5.':'From question 6, answer choices show Chinese characters only.');
   renderConnectorSentence(connectorCurrent());
   $('connectorChoices').replaceChildren();$('connectorFeedback').textContent='';$('connectorFeedback').className='idiom-feedback';
-  shuffled(activeConnectorGroups()).forEach(group=>{
+  const answerGroup=activeConnectorGroups().find(group=>group.id===connectorCurrent().answer);
+  const answerChoices=shuffled([answerGroup,...shuffled(activeConnectorGroups().filter(group=>group!==answerGroup)).slice(0,3)]);
+  answerChoices.forEach(group=>{
     const b=document.createElement('button');b.type='button';b.className='choice definition-choice connector-choice';b.dataset.group=group.id;
     group.phrases.forEach(([meaning,pinyin],index)=>{
       if(index){const sep=document.createElement('span');sep.className='connector-separator';sep.textContent='…';b.append(sep);}
@@ -2322,6 +2443,90 @@ $('connectorsModeButton').onclick=()=>startConnectors();
 $('connectorRestart').onclick=()=>startConnectors();
 $('connectorPatterns').onclick=()=>startConnectors('patterns');
 $('connectorViewpoints').onclick=()=>startConnectors('viewpoints');
+
+function previewWordTarget(word){return (word.character.replace(/[（(][^）)]*[）)]/gu,'').match(/\p{Script=Han}/gu)||[]).join('');}
+function makePreviewPool(word){
+  const target=previewWordTarget(word),config=wordBuildingConfig[word.character];
+  if(!config)throw Error('Missing word-building plan: '+word.character);
+  const distractors=[...new Set(config.distractors)].filter(c=>!target.includes(c));
+  return shuffled([...target,...distractors]);
+}
+function enhancedDashboard(){
+  dashboard();
+  $('dashNeededLabel').textContent='Words completed';$('dashNeeded').textContent=position+'/'+queue.length;
+  if(mode==='pretest')$('dashWords').textContent=(previewState.pinyinCorrect+previewState.meaningCorrect)+'/'+queue.length*2;
+  $('dashboardNote').textContent=mode==='pretest'?'Two steps per word: choose pinyin, then choose the meaning. This practice result does not change saved lesson progress.':'Build each word from its pinyin. Extra characters focus on characters that are easier to confuse. This practice does not change saved progress.';
+}
+function renderEnhancedPreviewQuestion(){
+  if(!previewState)previewState={step:0,pinyinCorrect:0,meaningCorrect:0,wordPinyinOK:false,startedAt:new Date().toISOString(),selected:[],pool:[]};
+  answered=false;const word=queue[position];
+  $('promptLabel').className='prompt-label active';
+  $('feedback').textContent='';$('feedback').className='feedback';$('choices').replaceChildren();
+  show('nextButton',false);$('prompt').classList.toggle('long-prompt',hanCount(word.character)>6);
+  if(mode==='practice'){
+    $('promptLabel').textContent=`Word ${position+1} of ${queue.length} · Build the word from its pinyin.`;
+    $('prompt').textContent=word.pinyin;$('prompt').dataset.kind='pinyin';show('previewEnglish',false);show('choices',false);$('wordBuilder').hidden=false;
+    previewState.selected=[];previewState.pool=makePreviewPool(word);
+    $('previewWordSuffix').textContent=word.character.includes('（儿）')?'The optional 儿 ending is already supplied.':'';
+    renderPreviewWordTiles();
+  }else{
+    const meaningStep=previewState.step===1;
+    $('promptLabel').textContent=`Word ${position+1} of ${queue.length} · Step ${meaningStep?2:1} of 2: Choose the ${meaningStep?'Chinese meaning':'pinyin'}.`;
+    $('prompt').textContent=word.character;$('prompt').dataset.kind='chinese';$('previewEnglish').textContent=word.meaning;show('previewEnglish',true);show('choices',true);$('wordBuilder').hidden=true;
+    $('choices').classList.toggle('definition-choices',meaningStep);
+    (meaningStep?definitionChoices(word):matchingChoices(word,false)).forEach(item=>{
+      const b=document.createElement('button');b.type='button';b.dataset.answerNo=String(item.no);b.className='choice '+(meaningStep?'definition-choice':'pinyin-choice');
+      if(meaningStep){const definition=formalDefinitions[item.no-1];b.append(annotatedIdiomMeaning({meaning:definition[0],pinyin:definition[1]}));}else b.textContent=item.pinyin;
+      b.onclick=()=>answerEnhancedPretest(item.no,b);$('choices').append(b);
+    });
+  }
+  enhancedDashboard();
+}
+function renderPreviewWordTiles(){
+  const target=previewWordTarget(queue[position]);$('previewWordSlots').replaceChildren();$('previewWordTiles').replaceChildren();
+  for(let i=0;i<target.length;i++){
+    const index=previewState.selected[i];
+    if(index===undefined){const blank=document.createElement('span');blank.className='idiom-slot-empty';blank.textContent=String(i+1);$('previewWordSlots').append(blank);}
+    else{const b=document.createElement('button');b.type='button';b.textContent=previewState.pool[index];b.disabled=answered;b.setAttribute('aria-label',`Remove character ${i+1}: ${b.textContent}`);b.onclick=()=>{if(answered)return;previewState.selected.splice(i,1);renderPreviewWordTiles();};$('previewWordSlots').append(b);}
+  }
+  previewState.pool.forEach((character,index)=>{
+    const b=document.createElement('button');b.type='button';b.textContent=character;b.dataset.tileIndex=String(index);b.disabled=answered||previewState.selected.includes(index);
+    b.onclick=()=>{if(answered||previewState.selected.includes(index)||previewState.selected.length>=target.length)return;previewState.selected.push(index);renderPreviewWordTiles();if(previewState.selected.length===target.length)checkPreviewBuiltWord();};$('previewWordTiles').append(b);
+  });
+  $('previewWordClear').disabled=answered||previewState.selected.length===0;
+}
+function checkPreviewBuiltWord(){
+  if(answered||complete)return;answered=true;
+  const word=queue[position],correct=previewState.selected.map(i=>previewState.pool[i]).join('')===previewWordTarget(word);
+  score+=Number(correct);missed+=Number(!correct);renderPreviewWordTiles();
+  $('feedback').textContent=correct?'':'Correct word: '+word.character+' · '+word.pinyin+' · '+word.meaning+'. Continuing in 5 seconds.';
+  $('feedback').className='feedback '+(correct?'good':'bad');position++;enhancedDashboard();
+  advanceTimer=setTimeout(()=>{advanceTimer=null;if(position===queue.length)finish();else question();},correct?800:5000);
+}
+function answerEnhancedPretest(no,button){
+  if(answered||complete)return;answered=true;const word=queue[position],correct=no===word.no,meaningStep=previewState.step===1;
+  for(const b of $('choices').children){b.disabled=true;if(Number(b.dataset.answerNo)===word.no)b.classList.add('correct');}
+  if(!correct)button.classList.add('wrong');
+  if(meaningStep){previewState.meaningCorrect+=Number(correct);const both=previewState.wordPinyinOK&&correct;score+=Number(both);missed+=Number(!both);position++;}
+  else{previewState.wordPinyinOK=correct;previewState.pinyinCorrect+=Number(correct);}
+  $('feedback').textContent=correct?'':meaningStep?'Correct meaning: '+formalDefinitions[word.no-1][0]+' — '+word.meaning+'. Continuing in 5 seconds.':'Correct pinyin: '+word.pinyin+'. Continuing to the meaning question in 5 seconds.';
+  $('feedback').className='feedback '+(correct?'good':'bad');enhancedDashboard();
+  advanceTimer=setTimeout(()=>{advanceTimer=null;previewState.step=meaningStep?0:1;if(position===queue.length)finish();else question();},correct?800:5000);
+}
+function finishEnhancedPreview(){
+  cancelAdvance();complete=true;answered=true;$('wordBuilder').hidden=true;show('previewEnglish',false);show('choices',true);$('choices').replaceChildren();
+  $('prompt').textContent=mode==='pretest'?'Pre-Test complete!':'Practice complete!';$('prompt').classList.add('long-prompt');
+  $('feedback').textContent='';$('feedback').className='feedback';show('nextButton',true);$('nextButton').textContent='Back to Study';$('nextButton').disabled=false;
+  enhancedDashboard();
+  const title=mode==='pretest'?'Pre-Test':'Word Building Practice';
+  const lines=['Harvest — '+title,'Lesson: '+currentLesson,'Words completed: '+position+'/'+queue.length];
+  if(mode==='pretest')lines.push('Pinyin correct: '+previewState.pinyinCorrect+'/'+queue.length,'Meaning correct: '+previewState.meaningCorrect+'/'+queue.length,'Both steps correct: '+score+'/'+queue.length);
+  else lines.push('Words correct: '+score+'/'+queue.length);
+  lines.push('Accuracy: '+Math.round(score/queue.length*100)+'%','Started: '+new Date(previewState.startedAt).toLocaleString(),'Completed: '+new Date().toLocaleString(),'Practice only — does not change formal lesson progress.');
+  const panel=document.createElement('section');panel.className='formal-result';
+  renderResultImage(panel,lines.join('\n'),'Your '+title+' Result','Harvest_'+currentLesson+'_'+mode+'_Result');$('feedback').append(panel);
+}
+$('previewWordClear').onclick=()=>{if(answered)return;previewState.selected=[];renderPreviewWordTiles();};
 
 </script>
 </body>
