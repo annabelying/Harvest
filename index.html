@@ -1481,6 +1481,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
 <style id="formal-definitions">
 .choice.definition-choice {display:flex;flex-direction:column;gap:9px;justify-content:center;align-items:stretch;text-align:left;min-width:0;max-width:100%;height:auto;padding:18px;border-radius:18px;white-space:normal;overflow-wrap:anywhere;line-height:1.55;}
 .definition-chinese {display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 2px;font-size:clamp(20px,4.4cqw,26px);font-weight:750;line-height:1.4;overflow-wrap:normal;word-break:normal;}
@@ -1660,7 +1669,7 @@ header {border-color:#ffda8f;background:linear-gradient(135deg,#fffef8,#fff0b4);
         <strong>Choose Unit and Lesson</strong>
         <span class="top-level-current" id="topLevelCurrent">Current Lesson: 1.1</span>
       </div>
-      <div class="level-tracker" id="topLevelTracker"></div>
+      <div class="level-tracker" id="topLevelTracker"></div><p style="margin:12px 0 0"><a id="supplementaryReadingEntry" href="outputs/Harvest_Supplementary_Reading.html" style="color:#926016;font-weight:700">1.1 补充课文 · 公立学校和私立学校的比较 →</a></p>
     </section>
 
     <section class="toolbar" aria-label="Practice settings">
@@ -1683,6 +1692,7 @@ header {border-color:#ffda8f;background:linear-gradient(135deg,#fffef8,#fff0b4);
     <button id="connectorsModeButton" type="button">Connecting Words 连接词</button>
   </section>
 </div>
+
 
 
 
@@ -1787,10 +1797,14 @@ header {border-color:#ffda8f;background:linear-gradient(135deg,#fffef8,#fff0b4);
 
 
 
+
+
+
+
 <section id="idiomsPage" class="idioms-page" hidden aria-label="Idioms and sayings activity">
   <div class="idiom-header"><div><p class="idiom-kicker">HARVEST · 1.1副</p><h2>Idioms &amp; Sayings 成语俗语</h2></div><button id="idiomRestart" type="button">Start Again</button></div>
   <p id="idiomProgress" class="idiom-progress" aria-live="polite"></p>
-  <h3 id="idiomStep"></h3><p id="idiomSituation" class="idiom-situation"></p>
+  <h3 id="idiomStep"></h3><p id="idiomSituation" class="idiom-situation connector-sentence"></p>
   <p id="idiomInstruction"></p>
   <div id="idiomSlots" class="idiom-slots" aria-label="Selected characters"></div>
   <div id="idiomTiles" class="idiom-tiles" aria-label="Character pool"></div>
@@ -1957,6 +1971,8 @@ header {border-color:#ffda8f;background:linear-gradient(135deg,#fffef8,#fff0b4);
 
 
 
+
+
 <dialog id="formalIntro" class="formal-intro" aria-labelledby="formalIntroTitle" aria-describedby="formalIntroDescription">
   <div class="formal-intro-content">
     <button id="formalIntroClose" class="formal-intro-close" type="button" aria-label="Close and keep studying">×</button>
@@ -2065,7 +2081,7 @@ function renderMenu(){
       b.title=ready?lessonData[id].title+' — '+lessonData[id].words.length+' words':'Coming soon';b.setAttribute('aria-label',`${id}: ${ready?lessonData[id].words.length+' words':'Coming soon'}`);b.setAttribute('aria-pressed',String(currentLesson===id));b.onclick=()=>selectLesson(id);
       const pair=document.createElement('div');pair.className='lesson-pair';pair.append(b);
       const supplementary=document.createElement('button');supplementary.type='button';supplementary.className='level-dot supplementary-tab'+(currentLesson===extraId?' current':'')+(extraReady&&progressForLesson(extraId).passed?' passed':'');supplementary.textContent=extraId;supplementary.disabled=!extraReady;
-      supplementary.title=extraReady?lessonData[extraId].words.length+' 个补充词汇':'补充词汇待添加';supplementary.setAttribute('aria-label',extraId+'：'+supplementary.title);supplementary.setAttribute('aria-pressed',String(currentLesson===extraId));supplementary.onclick=()=>selectLesson(extraId);pair.append(supplementary);lessons.append(pair);
+      supplementary.title=extraReady?lessonData[extraId].words.length+' 个补充词汇':'补充词汇待添加';supplementary.setAttribute('aria-label',extraId+'：'+supplementary.title);supplementary.setAttribute('aria-pressed',String(currentLesson===extraId));supplementary.onclick=()=>selectLesson(extraId);pair.append(supplementary);if(id==='1.1'){const reading=document.createElement('a');reading.href='outputs/Harvest_Supplementary_Reading.html';reading.className='level-dot supplementary-reading';reading.textContent='补充课文';reading.style.cssText='display:block;text-align:center;text-decoration:none;background:#fff7df;border:1px solid #edcf87;color:#926016;border-radius:9px;font-size:13px;padding:9px 3px';pair.append(reading);}lessons.append(pair);
       const option=document.createElement('option');option.value=id;option.textContent=`Unit ${unit}, Lesson ${lesson} (${ready?lessonData[id].words.length+' words':'Coming soon'})`;option.disabled=!ready;$('levelJumpSelect').append(option);
       const extraOption=document.createElement('option');extraOption.value=extraId;extraOption.textContent=extraId+(extraReady?'（'+lessonData[extraId].words.length+' 个词）':'（补充词汇待添加）');extraOption.disabled=!extraReady;$('levelJumpSelect').append(extraOption);
     }
@@ -2238,6 +2254,22 @@ const idiomItems=[
  {word:'兴高采烈',parts:['兴高采烈'],situation:'听说明天要去春游，同学们高兴地笑着，开心地讨论起来。',meaning:'非常高兴',pinyin:'fēi cháng gāo xìng'},
  {word:'天南海北',parts:['天南海北'],situation:'朋友们聚在一起，从各地的风景聊到各种趣事，话题很广。',meaning:'各地或各种话题',pinyin:'gè dì huò gè zhǒng huà tí'}
 ];
+// Readings follow sentence context, including polyphonic characters and neutral tones.
+const idiomSituationReadings=[
+ 'xiǎo míng xiǎng wán chéng zuò yè kě shì yǒu yí dào nán tí dǎng zhù le tā zhè ge kùn nan jiù xiàng shén me',
+ 'bǐ sài hái méi kāi shǐ xiǎo míng yǐ yǒu hǎo jì huà xīn lǐ hěn yǒu bǎ wò',
+ 'zhè běn gù shi shū tài yǒu qù le xiǎo měi yuè dú yuè xiǎng dú lián xiū xi dōu wàng le',
+ 'dà jiā fā xiàn xiǎo qiáng shuō le huǎng tā xiū de xiǎng zhǎo ge dì fang duǒ qǐ lái',
+ 'lǎo shī jiāo gěi nǐ xué xí de fāng fǎ xué de hǎo bù hǎo hái yào kào zì jǐ nǔ lì',
+ 'lǎo shī gāng wèn wán xiǎo míng méi yǒu duō xiǎng jiù bǎ xīn lǐ de dá àn shuō le chū lái',
+ 'tīng shuō míng tiān yào qù chūn yóu tóng xué men gāo xìng de xiào zhe kāi xīn de tǎo lùn qǐ lái',
+ 'péng you men jù zài yì qǐ cóng gè dì de fēng jǐng liáo dào gè zhǒng qù shì huà tí hěn guǎng'
+];
+const idiomWordReadings=['lán lù hǔ','xiōng yǒu chéng zhú','jīn jīn yǒu wèi','wú dì zì róng','shī fu lǐng jìn mén xiū xíng zài gè rén','tuō kǒu ér chū','xìng gāo cǎi liè','tiān nán hǎi běi'];
+function renderIdiomSituation(meaningStep=false){
+ const index=idiomState.index,item=idiomCurrent();
+ renderConnectorSentence({sentence:meaningStep?item.word:item.situation,reading:meaningStep?idiomWordReadings[index]:idiomSituationReadings[index]},null,'idiomSituation');
+}
 const idiomExplanations={
  '拦路虎':'This expression describes a difficulty that blocks your progress, like a tiger blocking a road.',
  '胸有成竹':'This means having a clear plan and feeling confident before you begin.',
@@ -2264,8 +2296,8 @@ function renderIdiomBuild(){
   const distractors=shuffled([...new Set('学故事山水心门天地高兴人路书来去看听想笑走竹足海语说行师友生')].filter(c=>!target.includes(c)));
   idiomState.pool=shuffled([...target,...distractors.slice(0,(target.length===3?8:10)-target.length)]);
   $('idiomStep').textContent=item.parts.length===2?`Step 1 · Build the saying (${idiomState.part+1}/2)`:'Step 1 · Build the expression';
-  $('idiomSituation').textContent=item.situation;
-  $('idiomInstruction').textContent=(idiomState.part===1?item.parts[0]+'，_____。 ':'')+`Choose ${target.length} characters in order. Tap a selected character to undo it.`;
+  renderIdiomSituation();
+  $('idiomInstruction').textContent=(idiomState.part===1?item.parts[0]+'，_____。 ':'')+`Choose ${target.length} characters in order. Tap a selected character to undo it. Hover over or tap a character in the sentence to see its pinyin.`;
   $('idiomMeaning').replaceChildren();$('idiomBuildActions').hidden=false;$('idiomSlots').hidden=false;$('idiomTiles').hidden=false;
   $('idiomFeedback').textContent='';$('idiomFeedback').className='idiom-feedback';
   idiomProgress();renderIdiomTiles();
@@ -2327,8 +2359,8 @@ function annotatedIdiomMeaning(item){
 function renderIdiomMeanings(){
   idiomState.stage='meaning';idiomState.locked=false;
   $('idiomStep').textContent='Step 2 · Choose the meaning';
-  $('idiomSituation').textContent=idiomCurrent().word;
-  $('idiomInstruction').textContent='You built it! Now choose what it means.';
+  renderIdiomSituation(true);
+  $('idiomInstruction').textContent='You built it! Now choose what it means. Hover over or tap a character in the expression to see its pinyin.';
   $('idiomBuildActions').hidden=true;$('idiomSlots').hidden=true;$('idiomTiles').hidden=true;
   $('idiomMeaning').replaceChildren();$('idiomFeedback').textContent='';
   const item=idiomCurrent();
@@ -2429,8 +2461,8 @@ const viewpointQuestions=[
 const connectorSets={patterns:{title:'Paired Connectors',questions:connectorQuestions,groups:connectorGroups},viewpoints:{title:'Opinions & Time',questions:viewpointQuestions,groups:viewpointGroups}};
 let currentConnectorSet='patterns';
 function activeConnectorGroups(){return connectorSets[currentConnectorSet].groups;}
-function renderConnectorSentence(question,group=null){
-  const container=$('connectorSentence');container.replaceChildren();
+function renderConnectorSentence(question,group=null,targetId='connectorSentence'){
+  const container=$(targetId);container.replaceChildren();
   const readings=question.reading.split(/\s+/);let readingIndex=0,phraseIndex=0,openHint=null;
   function appendCharacter(character,pinyin){
     if(!pinyin){const span=document.createElement('span');span.textContent=character;container.append(span);return;}
@@ -2597,6 +2629,8 @@ function finishEnhancedPreview(){
 }
 $('previewWordClear').onclick=()=>{if(answered)return;previewState.selected=[];renderPreviewWordTiles();};
 
+
+const requestedLesson=new URLSearchParams(window.location.search).get('lesson');if(requestedLesson&&lessonData[requestedLesson])selectLesson(requestedLesson);
 </script>
 </body>
 </html>
